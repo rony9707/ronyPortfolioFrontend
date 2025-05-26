@@ -2,6 +2,7 @@
   @apply min-h-screen flex items-center sm:p-0;
 }
 
+
 .even {
   @apply bg-slate-50;
 }

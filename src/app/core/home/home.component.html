@@ -35,23 +35,27 @@
       <app-index></app-index>
     </div>
 
-    <div #aboutSection class="section odd" id="aboutSection">
+    <div #aboutSection class="pt-10 pb-10 odd" id="aboutSection">
       <app-about [agnibhaData]="agnibhaData"></app-about>
     </div>
 
-    <div class="flex items-center justify-center border-2 sm:p-0 even">
+    <div class="pt-10 pb-10 even">
+      <app-interests></app-interests>
+    </div>
+
+    <div class="pt-10 pb-10 odd">
       <app-skills [skills]="agnibhaData?.skills"></app-skills>
     </div>
 
-    <div #resumeSection class="section odd" id="resumeSection">
+    <div #resumeSection class="pt-10 pb-10 even" id="resumeSection">
       <app-resume></app-resume>
     </div>
 
-    <div #portfolioSection class="section even" id="portfolioSection">
+    <div #portfolioSection class="pt-10 pb-10 odd" id="portfolioSection">
       <app-portfolio></app-portfolio>
     </div>
 
-    <div #contactSection class="section odd" id="contactSection">
+    <div #contactSection class="pt-10 pb-10 even" id="contactSection">
       <app-contactme></app-contactme>
     </div>
 

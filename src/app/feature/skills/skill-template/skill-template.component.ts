@@ -1,12 +1,13 @@
 import { ChangeDetectorRef, Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import { Skill } from '../../../shared/interface/IAgnibhaProfile.interface';
 import { trigger, transition, style, animate, state } from '@angular/animations';
+import { IntersectionObserverDirective } from '../../../shared/directive/intersection-observer.directive';
 
 
 @Component({
   selector: 'app-skill-template',
   standalone: true,
-  imports: [],
+  imports: [IntersectionObserverDirective],
   templateUrl: './skill-template.component.html',
   styleUrl: './skill-template.component.css',
   animations: [
@@ -39,7 +40,6 @@ export class SkillTemplateComponent {
 
   ngAfterViewInit(): void {
     this.percentage = parseFloat(this.templatePercentage.nativeElement.textContent.replace('%', ''));
-    console.log(this.percentage)
     // Set dynamic width value
     this.setWidthValue();
 

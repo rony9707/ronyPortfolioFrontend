@@ -11,11 +11,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { IAgnibhaProfile } from '../../shared/interface/IAgnibhaProfile.interface';
 import { SkillsComponent } from "../../feature/skills/skills.component";
+import { InterestsComponent } from "../../feature/interests/interests.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [IndexComponent, AboutComponent, PortfolioComponent, ResumeComponent, ContactmeComponent, SidebarComponent, CommonModule, SkillsComponent],
+  imports: [IndexComponent, AboutComponent, PortfolioComponent, ResumeComponent, ContactmeComponent, SidebarComponent, CommonModule, SkillsComponent, InterestsComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
