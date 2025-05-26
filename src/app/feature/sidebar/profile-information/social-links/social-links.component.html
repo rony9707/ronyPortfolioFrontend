@@ -1,0 +1,7 @@
+<div class="flex gap-5">
+  @for(social of socialLinks;track $index){
+  <a [href]="social.url" target="_blank" class="social" [attr.aria-label]="social.platform">
+    <i [class]="social.iconClass"></i>
+  </a>
+  }
+</div>

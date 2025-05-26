@@ -1,0 +1,59 @@
+<div class="flex flex-row h-screen relative">
+
+  <!-- Hamburger -->
+  <!-- Hamburger -->
+  <div class="absolute top-0 right-0 mr-5 mt-2 cursor-pointer z-50 xl:hidden animate-fade-slide-down"
+    (click)="sidebarOpen.set(!sidebarOpen())">
+    @if (!sidebarOpen()) {
+    <img class="w-8" src="assets/SVG/hamburger_open.svg" />
+    } @else {
+    <img class="w-8" src="assets/SVG/hamburger_close.svg" />
+    }
+  </div>
+
+
+
+
+  <!-- Sidebar -->
+  <div class="bg-slate-900 p-4 space-y-2 transition-all duration-300 ease-in-out
+            w-80 xl:relative absolute h-full z-40" [ngClass]="{
+       'translate-x-0': sidebarOpen(),
+       '-translate-x-full': !sidebarOpen(),
+       'xl:translate-x-0': true
+     }">
+    <app-sidebar [activeSection]="activeSection()" [socialLinks]="agnibhaData?.socialLinks"
+      [pfp]="agnibhaData!.info[9].value" (closeSidebarEvent)="closeSidebar($event)">
+    </app-sidebar>
+  </div>
+
+
+
+  <!-- Scrollable Container -->
+  <div class="flex-grow overflow-y-scroll scroll-smooth w-full" #scrollContainer (scroll)="onScroll()">
+
+    <div #indexSection class="section even" id="indexSection">
+      <app-index></app-index>
+    </div>
+
+    <div #aboutSection class="section odd" id="aboutSection">
+      <app-about [agnibhaData]="agnibhaData"></app-about>
+    </div>
+
+    <div class="flex items-center justify-center border-2 sm:p-0 even">
+      <app-skills [skills]="agnibhaData?.skills"></app-skills>
+    </div>
+
+    <div #resumeSection class="section odd" id="resumeSection">
+      <app-resume></app-resume>
+    </div>
+
+    <div #portfolioSection class="section even" id="portfolioSection">
+      <app-portfolio></app-portfolio>
+    </div>
+
+    <div #contactSection class="section odd" id="contactSection">
+      <app-contactme></app-contactme>
+    </div>
+
+  </div>
+</div>

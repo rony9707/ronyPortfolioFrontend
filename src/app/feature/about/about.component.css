@@ -1,0 +1,9 @@
+:host{
+  display:grid;
+  place-items: center;
+  padding: 5px 0px 5px 0px;
+}
+
+.beforeEachSection{
+  @apply before:content-['>'] before:mr-2 before:text-green-600  before:text-2xl ;
+}

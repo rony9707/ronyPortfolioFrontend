@@ -1,0 +1,5 @@
+.social{
+  @apply text-white hover:text-black hover:bg-green-500 p-2 rounded-full transition duration-300 w-10 h-10 flex items-center justify-center;
+   background-color: color-mix(in srgb, #ffffff, transparent 85%);
+}
+
