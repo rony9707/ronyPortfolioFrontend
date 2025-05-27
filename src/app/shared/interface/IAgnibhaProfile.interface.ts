@@ -49,4 +49,5 @@ export interface IAgnibhaProfile {
   portfolios: Portfolio[];
   socialLinks: SocialLink[];
   experiences: Experience[]; 
+  songs:[];
 }

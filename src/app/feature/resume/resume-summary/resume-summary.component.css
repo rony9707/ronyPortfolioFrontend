@@ -1,0 +1,47 @@
+.heading{
+  font-size: 28px;
+  font-weight: 700;
+  margin-left: -5px;
+  margin-top: 25px;
+}
+
+.subheading{
+  color: var(--site-accent);
+  margin: 10px 0px 10px 0px;
+  font-weight: 500;
+}
+
+.resume-summary {
+  padding: 0px 0px 0px 25px;
+  padding-bottom: 1px;
+  margin-top: -2px;
+  border-left: 2px solid rgba(0, 0, 0);
+  position: relative;
+}
+
+p{
+  font-style: italic;
+}
+
+.resume-summary::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50px;
+  left: -12px;
+  top: -2px;
+  background: #18d26e;
+  border: 2px solid #18d26e;
+}
+
+ul li{
+  margin: 10px 0px 3px 0px;
+}
+
+@media(max-width:1028px) {
+  .common{
+    margin-left: 5px;
+  }
+
+}

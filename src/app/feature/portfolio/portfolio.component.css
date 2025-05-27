@@ -3,3 +3,44 @@
   place-items: center;
   padding: 5px 0px 5px 0px;
 }
+
+.portfolio-main {
+  margin-top: 20px;
+  height: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 3fr);
+  gap: 25px;
+  transition: .4s;
+}
+
+.selected-project{
+  position: absolute;
+  top:0;
+  left:0;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  z-index: 11;
+}
+
+
+@media(max-width:806px) {
+  .portfolio-main {
+    grid-template-columns: repeat(2, 2fr);
+    transition: .4s;
+  }
+
+  .selected-project{
+    width: 100%;
+    height: 100dvh;
+  }
+  
+}
+
+/* Media query for 1 column */
+@media (max-width: 574px) {
+  .portfolio-main {
+    grid-template-columns: repeat(1, 2fr);
+    transition: .4s;
+  }
+}

@@ -1,0 +1,70 @@
+.heading{
+  font-size: 28px;
+  font-weight: 700;
+  margin-left: -5px;
+  margin-top: 25px;
+}
+
+.subheading{
+  color: var(--site-accent);
+  margin: 10px 0px 10px 0px;
+  font-weight: 500;
+}
+
+.resume-summary {
+  padding: 0px 0px 0px 25px;
+  padding-bottom: 1px;
+  margin-top: -2px;
+  border-left: 2px solid rgba(0, 0, 0);
+  position: relative;
+}
+
+p{
+  font-style: italic;
+}
+
+.resume-summary::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50px;
+  left: -12px;
+  top: -2px;
+  background: #18d26e;
+  border: 2px solid #18d26e;
+}
+
+
+
+ul {
+  padding-left: 0; /* Removes the padding from the left side of the ul element */
+  list-style-position: inside; /* Keeps the bullets inside the ul element */
+  margin-left: 20px;
+}
+li {
+  padding-left: 0; /* Removes the padding from the left side of the li elements */
+  margin: 10px 0px 3px 0px;
+}
+
+.year-duration{
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 5px 15px;
+  display: inline-block;
+  font-weight: 600;
+}
+
+@media(max-width:1028px) {
+  .common{
+    margin-left: 5px;
+  }
+
+
+  ul {
+    padding-left: 0; /* Removes the padding from the left side of the ul element */
+    list-style-position: inside; /* Keeps the bullets inside the ul element */
+    margin-left: 0px;
+  }
+
+}

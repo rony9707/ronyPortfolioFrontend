@@ -52,7 +52,7 @@ export class HomeComponent {
   ngOnInit(): void {
     const user: IAgnibhaProfile = this.route.snapshot.data['user'];
     this.agnibhaData = user;
-    console.log('User from resolver:', user.info[9].value);
+    console.log('User from resolver:', user);
   }
 
 
