@@ -49,14 +49,14 @@ export class HomeComponent {
   private route = inject(ActivatedRoute)
 
 
-  ngOnInit() {
+  ngOnInit(): void {
     const user: IAgnibhaProfile = this.route.snapshot.data['user'];
     this.agnibhaData = user;
     console.log('User from resolver:', user.info[9].value);
   }
 
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.$scrollSub = this.scrollService.section$.subscribe(sectionName => {
       //which section to navigate coming from "Navigation Button Component"
       this.scrollToSection(sectionName);
@@ -66,12 +66,12 @@ export class HomeComponent {
     setTimeout(() => this.onScroll(), 0);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.$scrollSub) this.$scrollSub.unsubscribe();
   }
 
   //which section to navigate coming from "Navigation Button Component"--1
-  scrollToSection(sectionName: string) {
+  scrollToSection(sectionName: string): void {
     const sectionMap: { [key: string]: ElementRef } = {
       indexSection: this.indexSection,
       aboutSection: this.aboutSection,
@@ -87,7 +87,7 @@ export class HomeComponent {
   }
 
   //which section to navigate coming from "Navigation Button Component"--2
-  scrollTo(target: HTMLElement) {
+  scrollTo(target: HTMLElement): void {
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
     }
@@ -95,7 +95,7 @@ export class HomeComponent {
 
 
   //Highlight the button of the section which is visible--1
-  onScroll() {
+  onScroll(): void {
     const container = this.scrollContainer.nativeElement;
     const scrollTop = container.scrollTop;
 
@@ -117,8 +117,8 @@ export class HomeComponent {
     this.activeSection.set(current);
   }
 
-
-  closeSidebar(close: boolean) {
+  //If in phone mode, a button of the sidebar is clicked, it will close the sidebar
+  closeSidebar(close: boolean): void {
     this.sidebarOpen.set(close)
   }
 

@@ -31,30 +31,43 @@
   <!-- Scrollable Container -->
   <div class="flex-grow overflow-y-scroll scroll-smooth w-full" #scrollContainer (scroll)="onScroll()">
 
+    <!-- Home Section -->
     <div #indexSection class="section even" id="indexSection">
       <app-index></app-index>
     </div>
 
+
+    <!-- About Me Section -->
     <div #aboutSection class="pt-10 pb-10 odd" id="aboutSection">
       <app-about [agnibhaData]="agnibhaData"></app-about>
     </div>
 
+
+    <!-- Interests Section -->
     <div class="pt-10 pb-10 even">
       <app-interests></app-interests>
     </div>
 
+
+    <!-- Skills Section -->
     <div class="pt-10 pb-10 odd">
       <app-skills [skills]="agnibhaData?.skills"></app-skills>
     </div>
 
+
+    <!-- Resume Section -->
     <div #resumeSection class="pt-10 pb-10 even" id="resumeSection">
       <app-resume></app-resume>
     </div>
 
+
+    <!-- Portfolio Section -->
     <div #portfolioSection class="pt-10 pb-10 odd" id="portfolioSection">
       <app-portfolio></app-portfolio>
     </div>
 
+
+    <!-- Contact Me Section -->
     <div #contactSection class="pt-10 pb-10 even" id="contactSection">
       <app-contactme></app-contactme>
     </div>

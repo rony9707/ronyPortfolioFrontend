@@ -32,11 +32,11 @@
           <li class="beforeEachSection">
             <span class="font-semibold">Website:</span>
             <a class="ml-1 underline break-all" [href]="website" target="_blank">{{website}}</a>
-            <i (click)="copyToClipboard(website)" class="fa fa-clone ml-1 cursor-pointer text-green-500"></i>
+            <i (click)="commonService.copyToClipboard(website)" class="fa fa-clone ml-1 cursor-pointer text-green-500"></i>
           </li>
           <li class="beforeEachSection">
             <span class="font-semibold">Phone:</span> {{ agnibhaData!.info[2].value}}
-            <i (click)="copyToClipboard(agnibhaData!.info[2].value)"
+            <i (click)="commonService.copyToClipboard(agnibhaData!.info[2].value)"
               class="fa fa-clone ml-1 cursor-pointer text-green-500"></i>
           </li>
           <li class="beforeEachSection">
@@ -54,7 +54,7 @@
           </li>
           <li class="beforeEachSection">
             <span class="font-semibold">Email:</span> {{agnibhaData!.info[5].value}}
-            <i (click)="copyToClipboard(agnibhaData!.info[5].value)"
+            <i (click)="commonService.copyToClipboard(agnibhaData!.info[5].value)"
               class="fa fa-clone ml-1 cursor-pointer text-green-500"></i>
           </li>
           <li class="beforeEachSection">

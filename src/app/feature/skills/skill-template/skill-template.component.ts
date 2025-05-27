@@ -24,19 +24,17 @@ import { IntersectionObserverDirective } from '../../../shared/directive/interse
 })
 export class SkillTemplateComponent {
 
+  //Decleare Properties here
   @ViewChild('templatePercentage', { static: false }) templatePercentage!: ElementRef;
-
-
+  @ViewChild('skillTemplate', { static: false }) skillTemplate!: ElementRef;
   percentage: number = 0;
   animationState: string = 'start';
   widthValue: number = 0;
 
-  @ViewChild('skillTemplate', { static: false }) skillTemplate!: ElementRef;
-
-  private cdRef = inject(ChangeDetectorRef)
-
-
   @Input() skill?: Skill;
+
+  //Inject Services here
+  private cdRef = inject(ChangeDetectorRef)
 
   ngAfterViewInit(): void {
     this.percentage = parseFloat(this.templatePercentage.nativeElement.textContent.replace('%', ''));

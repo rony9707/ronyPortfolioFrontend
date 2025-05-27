@@ -4,9 +4,9 @@
 
 
 .even {
-  @apply bg-slate-50;
+  @apply bg-gray-100;
 }
 
 .odd {
-  @apply bg-slate-100;
+  @apply bg-gray-200;
 }
