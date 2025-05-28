@@ -36,7 +36,8 @@ p{
 }
 
 ul li{
-  margin: 10px 0px 3px 0px;
+  margin: 10px 0px 3px 20px;
+  list-style-type: disc; 
 }
 
 @media(max-width:1028px) {

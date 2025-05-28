@@ -32,62 +32,16 @@ export class AboutComponent {
       for (let metric of this.agnibhaData.meterics) {
         if (metric.type === 'itExperience') {
           //Calculate years of Experience here
-          metric.count = this.getYearsOfExperience(doj);
+          metric.count = this.commonService.getYearsOfExperience(doj);
         }
         if (metric.type === 'hoursOfSupport') {
           //Calculate hours of support here
-          metric.count = this.getHoursOfSupport(doj);
+          metric.count = this.commonService.getHoursOfSupport(doj);
         }
       }
     }
   }
 
-  getYearsOfExperience(doj: string): number {
-    const [day, month, year] = doj.split('/').map(Number);
-    const joiningDate = new Date(year, month - 1, day);
-    const today = new Date();
-
-    const diffInMs = today.getTime() - joiningDate.getTime();
-    const msPerYear = 1000 * 60 * 60 * 24 * 365.25; // including leap years approx
-    const years = diffInMs / msPerYear;
-
-    return parseFloat(years.toFixed(2)); // e.g. 4.91 years
-  }
-
-  getHoursOfSupport(doj: string): number {
-    const [day, month, year] = doj.split('/').map(Number);
-    const joiningDate = new Date(year, month - 1, day);
-    const today = new Date();
-
-    const hoursPerDay = 9;
-    const personalLeaveDaysPerYear = 35;
-
-    // Calculate total working days between joiningDate and today (exclude Sat & Sun)
-    let totalWorkingDays = 0;
-    const currentDate = new Date(joiningDate);
-
-    while (currentDate <= today) {
-      const dayOfWeek = currentDate.getDay();
-      if (dayOfWeek !== 0 && dayOfWeek !== 6) { // 0 = Sunday, 6 = Saturday
-        totalWorkingDays++;
-      }
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-
-    // Calculate total years of experience for scaling personal leave days
-    const totalYears = this.getYearsOfExperience(doj);
-
-    // Total personal leave days taken (scaled)
-    const totalPersonalLeaveDays = personalLeaveDaysPerYear * totalYears;
-
-    // Calculate effective working days after leave deduction
-    const effectiveWorkingDays = totalWorkingDays - totalPersonalLeaveDays;
-
-    // Calculate total support hours
-    const totalHours = Math.floor(effectiveWorkingDays * hoursPerDay);
-
-    return totalHours;
-  }
 
 
 }

@@ -1,11 +1,32 @@
-<div class="heading common">Professional Experience</div>
+<div class="experience-header">
+  <div class="heading common">Professional Experience</div>
+  <app-download-resume [resumeDownloadLink]="resumeDownloadLink"></app-download-resume>
+</div>
+
+
 <div class="resume-summary common">
   <div class="subheading">Agnibha Chowdhury</div>
-  <div class="year-duration">2020-Present</div>
-  <p>Capgemini, Navi Mumbai, India</p>
-  <ul>
-    <li *ngFor="let experience of experiences">
-      {{ experience }}
-    </li>
-  </ul>
+
+
+  @for (experience of experiences; track experience.company; let i = $index; let isLast = $last) {
+  <div (click)="toggle(i)" class="accordion-header fade-in" appIntersectionObserver>
+    <div>{{ experience.company }}</div>
+    <div>{{ experience.duration }} | {{ experience.location }}</div>
+  </div>
+
+  <div [@slideToggle]="isOpen(i) || isLast && openIndex === null ? 'open' : 'closed'" class="accordion-body fade-in" appIntersectionObserver>
+    <div class="accordion-content">
+      <ul>
+        @for (responsibility of experience.responsibilities; track $index) {
+        <li>{{ responsibility }}</li>
+        }
+      </ul>
+    </div>
+  </div>
+  }
+
+
+
+
+
 </div>

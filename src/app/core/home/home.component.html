@@ -45,7 +45,7 @@
 
     <!-- Interests Section -->
     <div class="pt-10 pb-10 even">
-      <app-interests></app-interests>
+      <app-interests [songList]="agnibhaData?.songs"></app-interests>
     </div>
 
 
@@ -57,7 +57,10 @@
 
     <!-- Resume Section -->
     <div #resumeSection class="pt-10 pb-10 even" id="resumeSection">
-      <app-resume></app-resume>
+      <app-resume 
+      [experience]="agnibhaData?.experiences"  
+      [agnibhaData]="agnibhaData" 
+      [resumeDownloadLink]="agnibhaData!.info[11]!.value"></app-resume>
     </div>
 
 

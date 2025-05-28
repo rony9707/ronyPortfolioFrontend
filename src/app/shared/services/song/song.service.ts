@@ -36,20 +36,30 @@ export class SongService {
     this.songLinks = songLinks;
     if (this.songLinks.length > 0) {
       this.musicUrl = this.songLinks[this.currentSongIndex];
+
+      // Load the song into the audio instance
+      if (this.audio.src !==  this.musicUrl) {
+        this.audio.src =  this.musicUrl;
+        this.audio.load();
+        console.log("song has been loaded")
+      }
     }
+
   }
 
   toggleMusic(musicStatus: boolean) {
-    this.music_status = musicStatus;
     this.audio.volume = this.volume / 100;
-    if (this.music_status) {
+    if (musicStatus) {
       if (this.musicUrl && this.audio.src !== this.musicUrl) {
         this.audio.src = this.musicUrl;
       }
-      this.audio.play();
-      this.startTimer();
+      this.audio.play().then((val) => {
+        this.music_status = musicStatus
+        this.startTimer();
+      });
     } else {
       this.audio.pause();
+      this.music_status = musicStatus
       this.stopTimer();
     }
   }

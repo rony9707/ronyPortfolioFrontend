@@ -4,4 +4,112 @@
   padding: 5px 0px 5px 0px;
 }
 
+.interests-main {
+  cursor: default;
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.interest {
+  background-color: rgba(199, 244, 255, 0.819);
+  padding: 30px 0px 30px 30px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.interest-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+@keyframes blink {
+  0% {
+    background-color: rgba(0, 123, 255, 0.15); 
+  }
+  50% {
+    background-color: rgba(199, 244, 255, 0.819);
+  }
+  100% {
+    background-color: rgba(0, 123, 255, 0.15);
+  }
+}
+
+.blink-element {
+  animation: blink  0.5s ease-in-out infinite;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.interst_svg {
+  width: 30px;
+}
+
+.interest-description {
+  margin-left: 20px;
+}
+
+@media (max-width: 1172px) {
+  .interests-main {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+
+/* Media query for 1 column */
+@media (max-width: 506px) {
+  .interests-main {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+
+.music-progress-bar {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: 10px;
+  background-color: #ddd;
+  border-radius: 10px;
+}
+
+.music-progress-bar:hover {
+  border-color: #9f8970;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 1);
+}
+
+
+.music-progress-bar::-webkit-progress-bar {
+  background-color: transparent;
+}
+
+.music-progress-bar::-webkit-progress-value {
+  background-color: var(--site-accent);
+  border-radius: 5px;
+}
+
+.music-progress-bar::-moz-progress-bar {
+  background-color: var(--site-accent);
+  border-radius: 5px;
+}
+
+
+.volume-slider {
+  margin-left: 10px;
+  width: 130px;
+  background: var(--site-accent);
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
 

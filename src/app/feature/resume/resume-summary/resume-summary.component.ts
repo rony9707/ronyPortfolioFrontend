@@ -1,36 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import { CommonService } from '../../../shared/services/common/common.service';
+import { IAgnibhaProfile } from '../../../shared/interface/IAgnibhaProfile.interface';
+import { IntersectionObserverDirective } from '../../../shared/directive/intersection-observer.directive';
 
 @Component({
   selector: 'app-resume-summary',
   standalone: true,
-  imports: [],
+  imports: [IntersectionObserverDirective],
   templateUrl: './resume-summary.component.html',
   styleUrl: './resume-summary.component.css'
 })
 export class ResumeSummaryComponent {
-  yearsOfexp = 0
 
-  ngOnInit(): void {
-    this.calculateMetrices();
-  }
+
+  //Decleare Properties here
+  @Input()
+  agnibhaData?: IAgnibhaProfile | null = null;
+
+  //Inject services here
+  private commonService = inject(CommonService)
+
 
   aboutMe = `
-  Innovative and deadline-driven Software Developer with  ${this.calculateMetrices()} years of experience in 
+  Innovative and deadline-driven Software Developer with ${Math.floor(this.commonService.getYearsOfExperience('23/06/2020') * 10) / 10} years of experience in 
   creating efficient and innovative software solutions and front end development.
-  `
+`;
 
-  calculateMetrices() {
-    let doj = '23/06/2020';
 
-    // Calculate IT experience------------------------------------------------------------------------
-    let [day, month, year] = doj.split('/').map(Number);  // Split doj to day, month and year which all have type number
-    let dateOfJoining = new Date(year, month - 1, day);
 
-    let currentDate = new Date();
-    let timeDifference = currentDate.getTime() - dateOfJoining.getTime();
-    let yearsOfExperience = timeDifference / (1000 * 60 * 60 * 24 * 365.25);
-    yearsOfExperience = Math.round(yearsOfExperience * 10) / 10;
-
-    return yearsOfExperience
-  }
 }
