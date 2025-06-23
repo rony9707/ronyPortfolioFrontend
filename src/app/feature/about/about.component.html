@@ -2,63 +2,64 @@
 
   <app-section-title class="fade-in" appIntersectionObserver>About</app-section-title>
 
-  <p #animationDiv class="italic text-lg fade-in" appIntersectionObserver>{{agnibhaData!.info[0].value}}</p>
+  <p #animationDiv class="italic text-lg fade-in" appIntersectionObserver>{{agnibhaData()!.info[0].value}}</p>
 
-  <div class="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-start mt-5 gap-8 fade-in"
-    appIntersectionObserver>
+  <div class="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-start mt-5 gap-8">
     <!-- Image -->
-    <img [src]="agnibhaData!.info[10].value"
-      class="w-64 sm:w-72 md:w-80 lg:w-80 h-auto object-cover rounded-lg shadow-md" priority />
+    <img [src]="agnibhaData()!.info[10].value" [alt]="agnibhaData()!.info[10].key" 
+      class="w-64 sm:w-72 md:w-80 lg:w-80 h-auto object-cover rounded-lg shadow-md fade-in" appIntersectionObserver
+      priority />
 
     <!-- Content Block -->
     <div class="flex flex-col gap-4 w-full lg:w-auto">
       <!-- Title -->
-      <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-center lg:text-left">
+      <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-center lg:text-left fade-in" appIntersectionObserver>
         Full-Stack Developer
       </div>
 
       <!-- Description -->
-      <p class="lg:text-left">
-        {{agnibhaData!.info[6].value}}
+      <p class="lg:text-left fade-in" appIntersectionObserver>
+        {{agnibhaData()!.info[6].value}}
       </p>
 
       <!-- Info Grid -->
       <div class="flex flex-col md:flex-row gap-y-2 md:gap-6">
         <!-- Left Column -->
         <ul class="space-y-2 w-full md:w-1/2">
-          <li class="beforeEachSection">
-            <span class="font-semibold">Birthday:</span> {{agnibhaData!.info[1].value | date: 'MMMM dd, y'}}
+          <li class="beforeEachSection fade-in" appIntersectionObserver>
+            <span class="font-semibold">Birthday:</span> {{agnibhaData()!.info[1].value | date: 'MMMM dd, y'}}
           </li>
-          <li class="beforeEachSection">
+          <li class="beforeEachSection fade-in" appIntersectionObserver>
             <span class="font-semibold">Website:</span>
             <a class="ml-1 underline break-all" [href]="website" target="_blank">{{website}}</a>
-            <i (click)="commonService.copyToClipboard(website)" class="fa fa-clone ml-1 cursor-pointer text-green-500"></i>
-          </li>
-          <li class="beforeEachSection">
-            <span class="font-semibold">Phone:</span> {{ agnibhaData!.info[2].value}}
-            <i (click)="commonService.copyToClipboard(agnibhaData!.info[2].value)"
+            <i (click)="commonService.copyToClipboard(website)"
               class="fa fa-clone ml-1 cursor-pointer text-green-500"></i>
           </li>
-          <li class="beforeEachSection">
-            <span class="font-semibold">City:</span> {{agnibhaData!.info[7].value}}
+          <li class="beforeEachSection fade-in" appIntersectionObserver>
+            <span class="font-semibold">Phone:</span> {{ agnibhaData()!.info[2].value}}
+            <i (click)="commonService.copyToClipboard(agnibhaData()!.info[2].value)"
+              class="fa fa-clone ml-1 cursor-pointer text-green-500"></i>
+          </li>
+          <li class="beforeEachSection fade-in" appIntersectionObserver>
+            <span class="font-semibold">City:</span> {{agnibhaData()!.info[7].value}}
           </li>
         </ul>
 
         <!-- Right Column -->
         <ul class="space-y-2 w-full md:w-1/2">
-          <li class="beforeEachSection">
-            <span class="font-semibold">Age:</span> {{agnibhaData!.info[1].value | calculateAge}}
+          <li class="beforeEachSection fade-in" appIntersectionObserver>
+            <span class="font-semibold">Age:</span> {{agnibhaData()!.info[1].value | calculateAge}}
           </li>
-          <li class="beforeEachSection">
-            <span class="font-semibold">Degree:</span> {{agnibhaData!.info[3].value}}
+          <li class="beforeEachSection fade-in" appIntersectionObserver>
+            <span class="font-semibold">Degree:</span> {{agnibhaData()!.info[3].value}}
           </li>
-          <li class="beforeEachSection">
-            <span class="font-semibold">Email:</span> {{agnibhaData!.info[5].value}}
-            <i (click)="commonService.copyToClipboard(agnibhaData!.info[5].value)"
+          <li class="beforeEachSection fade-in" appIntersectionObserver>
+            <span class="font-semibold">Email:</span> {{agnibhaData()!.info[5].value}}
+            <i (click)="commonService.copyToClipboard(agnibhaData()!.info[5].value)"
               class="fa fa-clone ml-1 cursor-pointer text-green-500"></i>
           </li>
-          <li class="beforeEachSection">
-            <span class="font-semibold">Languages known:</span> {{agnibhaData!.info[4].value}}
+          <li class="beforeEachSection fade-in" appIntersectionObserver>
+            <span class="font-semibold">Languages known:</span> {{agnibhaData()!.info[4].value}}
           </li>
         </ul>
       </div>
@@ -66,9 +67,9 @@
   </div>
 
 
-  <div #animationDiv class="mt-20 fade-in grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10" appIntersectionObserver>
-    @for(metric of agnibhaData?.meterics; track metric.type){
-      <app-metric-template [metric]="metric"></app-metric-template>
+  <div #animationDiv class="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+    @for(metric of agnibhaData()?.meterics; track metric.type){
+    <app-metric-template [metric]="metric"></app-metric-template>
     }
   </div>
 

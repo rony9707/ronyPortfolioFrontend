@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, input, Output } from '@angular/core';
 import { ProfileInformationComponent } from "./profile-information/profile-information.component";
 import { NavigationButtonsComponent } from "./navigation-buttons/navigation-buttons.component";
 import { SocialLink } from '../../shared/interface/IAgnibhaProfile.interface';
@@ -8,16 +8,16 @@ import { SocialLink } from '../../shared/interface/IAgnibhaProfile.interface';
   standalone: true,
   imports: [ProfileInformationComponent, NavigationButtonsComponent],
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.css'
+  styleUrl: './sidebar.component.css',
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class SidebarComponent {
 
-  @Input()
-  activeSection: string = 'indexSection';
-  @Input()
-  socialLinks?: SocialLink[] = [];
-  @Input()
-  pfp?: string
+  activeSection = input<string>('indexSection');
+
+  socialLinks = input<SocialLink[]>([]);
+
+  pfp = input<string>('')
 
   @Output() closeSidebarEvent = new EventEmitter<boolean>();
 

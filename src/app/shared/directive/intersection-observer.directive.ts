@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appIntersectionObserver]',
@@ -6,7 +6,8 @@ import { Directive, ElementRef, Renderer2 } from '@angular/core';
 })
 export class IntersectionObserverDirective {
 
-  constructor(private el: ElementRef, private renderer: Renderer2) { }
+  private el=inject(ElementRef);
+  private renderer= inject(Renderer2)
 
   ngAfterViewInit(): void {
     const observer = new IntersectionObserver(

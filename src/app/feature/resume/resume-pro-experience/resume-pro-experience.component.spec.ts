@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ResumeProExperienceComponent } from './resume-pro-experience.component';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('ResumeProExperienceComponent', () => {
   let component: ResumeProExperienceComponent;
@@ -8,7 +9,8 @@ describe('ResumeProExperienceComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ResumeProExperienceComponent]
+      imports: [ResumeProExperienceComponent],
+      providers:[provideHttpClient()]
     })
     .compileComponents();
 

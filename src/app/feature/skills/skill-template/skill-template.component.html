@@ -1,10 +1,10 @@
 <div class="skill-template-main fade-in" #skillTemplate appIntersectionObserver>
   <div class="skill-template-info">
-    <div class="skill-template-description">{{skill?.description}}</div>
-    <div class="skill-template-percentage" #templatePercentage>{{ skill?.percentage }}%</div>
+    <div class="skill-template-description">{{skill()?.description}}</div>
+    <div class="skill-template-percentage" #templatePercentage>{{ skill()?.percentage }}%</div>
   </div>
   <!-- This is the animated progress bar -->
   <div class="skill-template-progressBar">
-    <div class="progress" [@progressAnimation]="{ value: animationState, params: { widthValue: widthValue } }"></div>
+    <div class="progress" [@progressAnimation]="{ value: animationState(), params: { widthValue: widthValue() } }"></div>
   </div>
 </div>

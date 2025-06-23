@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DownloadResumeComponent } from './download-resume.component';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('DownloadResumeComponent', () => {
   let component: DownloadResumeComponent;
@@ -8,7 +9,8 @@ describe('DownloadResumeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DownloadResumeComponent]
+      imports: [DownloadResumeComponent],
+      providers:[provideHttpClient()]
     })
     .compileComponents();
 

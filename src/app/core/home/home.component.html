@@ -5,9 +5,9 @@
   <div class="absolute top-0 right-0 mr-5 mt-2 cursor-pointer z-50 xl:hidden animate-fade-slide-down"
     (click)="sidebarOpen.set(!sidebarOpen())">
     @if (!sidebarOpen()) {
-    <img class="w-8" src="assets/SVG/hamburger_open.svg" />
+    <img class="w-8" src="assets/SVG/hamburger_open.svg" alt="open"/>
     } @else {
-    <img class="w-8" src="assets/SVG/hamburger_close.svg" />
+    <app-close></app-close>
     }
   </div>
 
@@ -21,8 +21,8 @@
        '-translate-x-full': !sidebarOpen(),
        'xl:translate-x-0': true
      }">
-    <app-sidebar [activeSection]="activeSection()" [socialLinks]="agnibhaData?.socialLinks"
-      [pfp]="agnibhaData!.info[9].value" (closeSidebarEvent)="closeSidebar($event)">
+    <app-sidebar [activeSection]="activeSection()" [socialLinks]="agnibhaData()!.socialLinks"
+      [pfp]="agnibhaData()!.info[9].value" (closeSidebarEvent)="closeSidebar($event)">
     </app-sidebar>
   </div>
 
@@ -31,48 +31,49 @@
   <!-- Scrollable Container -->
   <div class="flex-grow overflow-y-scroll scroll-smooth w-full" #scrollContainer (scroll)="onScroll()">
 
+    @if (songService.music_status()) {
+    <canvas #canvas class="audio-visualizer"></canvas>
+    }
     <!-- Home Section -->
     <div #indexSection class="section even" id="indexSection">
-      <app-index></app-index>
+      <app-index [videoBg]="agnibhaData()!.info[12]!.value"></app-index>
     </div>
 
 
     <!-- About Me Section -->
     <div #aboutSection class="pt-10 pb-10 odd" id="aboutSection">
-      <app-about [agnibhaData]="agnibhaData"></app-about>
+      <app-about [agnibhaData]="agnibhaData()"></app-about>
     </div>
 
 
     <!-- Interests Section -->
     <div class="pt-10 pb-10 even">
-      <app-interests [songList]="agnibhaData?.songs"></app-interests>
+      <app-interests [songList]="agnibhaData()!.songs" (music_play_status)="music_play_status($event)"></app-interests>
     </div>
 
 
     <!-- Skills Section -->
     <div class="pt-10 pb-10 odd">
-      <app-skills [skills]="agnibhaData?.skills"></app-skills>
+      <app-skills [skills]="agnibhaData()!.skills"></app-skills>
     </div>
 
 
     <!-- Resume Section -->
     <div #resumeSection class="pt-10 pb-10 even" id="resumeSection">
-      <app-resume 
-      [experience]="agnibhaData?.experiences"  
-      [agnibhaData]="agnibhaData" 
-      [resumeDownloadLink]="agnibhaData!.info[11]!.value"></app-resume>
+      <app-resume [experience]="agnibhaData()?.experiences" [agnibhaData]="agnibhaData()"
+        [resumeDownloadLink]="agnibhaData()!.info[11]!.value"></app-resume>
     </div>
 
 
     <!-- Portfolio Section -->
     <div #portfolioSection class="pt-10 pb-10 odd" id="portfolioSection">
-      <app-portfolio></app-portfolio>
+      <app-portfolio [portfolios]="agnibhaData()!.portfolios"></app-portfolio>
     </div>
 
 
     <!-- Contact Me Section -->
     <div #contactSection class="pt-10 pb-10 even" id="contactSection">
-      <app-contactme></app-contactme>
+      <app-contactme [agnibhaData]="agnibhaData()"></app-contactme>
     </div>
 
   </div>

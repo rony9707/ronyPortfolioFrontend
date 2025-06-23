@@ -1,3 +1,13 @@
 <div class="container-template">
-  sadsadasdassadfasdfsadfd
+  <app-section-title class="fade-in" appIntersectionObserver>Contact Me</app-section-title>
+
+  <div class="flex flex-col md:flex-row items-stretch gap-4 mt-10">
+    <div class="w-full md:w-5/12">
+      <app-address [agnibhaData]="agnibhaData()"></app-address>
+    </div>
+    <div class="w-full md:w-7/12">
+      <app-contact-me-form></app-contact-me-form>
+    </div>
+  </div>
+
 </div>

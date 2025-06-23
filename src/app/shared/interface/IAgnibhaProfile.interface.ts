@@ -14,15 +14,21 @@ export interface Skill {
 }
 
 export interface Portfolio {
+  type: 'Project' | 'NPM Package';
   projectName: string;
   imageLink: string;
   progress: string;
-  githubLink: string;
-  projectURL: string;
   description: string;
   technologiesUsed: string;
   projectDate: string;
+
+  // Optional fields 
+  githubLink?: string;
+  projectURL?: string;
+  npmLink?: string;
+  npmInstallCMD?: string;
 }
+
 
 export interface SocialLink {
   platform: string;
@@ -43,11 +49,11 @@ export interface KeyValue {
 }
 
 export interface IAgnibhaProfile {
-  info: KeyValue[];         
+  info: KeyValue[];
   meterics: Metric[];
   skills: Skill[];
   portfolios: Portfolio[];
   socialLinks: SocialLink[];
-  experiences: Experience[]; 
-  songs:[];
+  experiences: Experience[];
+  songs: string[];
 }

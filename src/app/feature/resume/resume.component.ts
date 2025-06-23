@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, Input } from '@angular/core';
 import { SectionTitleComponent } from '../../shared/components/section-title/section-title.component';
 import { ResumeSummaryComponent } from './resume-summary/resume-summary.component';
 import { ResumeEducationComponent } from './resume-education/resume-education.component';
@@ -21,8 +21,7 @@ import { Experience, IAgnibhaProfile } from '../../shared/interface/IAgnibhaProf
 export class ResumeComponent {
 
   //Decleare Properties here
-  @Input()
-  agnibhaData?: IAgnibhaProfile | null = null;
+  agnibhaData = input<IAgnibhaProfile | null>(null)
   @Input()
   experience?: Experience[] = [];
   @Input()

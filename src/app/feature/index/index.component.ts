@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-index',
@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './index.component.css'
 })
 export class IndexComponent {
+  videoBg= input<string>()
 
 }

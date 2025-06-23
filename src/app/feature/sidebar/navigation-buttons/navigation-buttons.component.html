@@ -1,13 +1,13 @@
 <div class="flex flex-col mt-10 gap-9 text-white ml-4">
 
-  @for(section of sections;track section.id)
+  @for(section of sections();track section.id)
   {
 
-  <button [class.active]="activeSection === section.id"
+  <button [class.active]="activeSection() === section.id"
     class="text-left text-lg  hover:text-green-500 transition duration-300" (click)=" navigate(section.id)"
     (click)="closeSidebar()" >
 
-    <i class="bi mr-4" [ngClass]="section.icon" [class.active]="activeSection === section.id"></i>
+    <i class="bi mr-4" [ngClass]="section.icon" [class.active]="activeSection() === section.id"></i>
     {{ section.label }}
 
   </button>

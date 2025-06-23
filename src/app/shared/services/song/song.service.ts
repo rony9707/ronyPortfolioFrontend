@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -7,11 +7,17 @@ import { BehaviorSubject } from 'rxjs';
 export class SongService {
 
   public audio = new Audio();
-  music_status = false;
-  musicUrl = '';
-  volume = 50;
+  music_status = signal(false)
+  musicUrl = signal('');
+  volume = signal(50);
   private songLinks: string[] = [];
   private currentSongIndex = 0;
+
+  //Audio Visualizer
+  audioCTX = new AudioContext()
+  private audioSource?: MediaElementAudioSourceNode;
+  private analyser?: AnalyserNode;
+
 
   songProgress: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   timer: BehaviorSubject<string> = new BehaviorSubject<string>('0:00');
@@ -19,6 +25,8 @@ export class SongService {
   private timerInterval: any;
 
   constructor() {
+    this.audio.crossOrigin = 'anonymous';
+
     this.audio.addEventListener('timeupdate', () => {
       this.updateProgress();
       this.updateTimer();
@@ -35,38 +43,64 @@ export class SongService {
   setSongs(songLinks: string[]) {
     this.songLinks = songLinks;
     if (this.songLinks.length > 0) {
-      this.musicUrl = this.songLinks[this.currentSongIndex];
+      this.musicUrl.set(this.songLinks[this.currentSongIndex]);
 
       // Load the song into the audio instance
-      if (this.audio.src !==  this.musicUrl) {
-        this.audio.src =  this.musicUrl;
+      if (this.audio.src !== this.musicUrl()) {
+        this.audio.src = this.musicUrl();
         this.audio.load();
         console.log("song has been loaded")
       }
     }
-
   }
 
+  getAnalyserNode(): AnalyserNode {
+    if (!this.analyser) {
+      this.audioSource = this.audioCTX.createMediaElementSource(this.audio);
+      this.analyser = this.audioCTX.createAnalyser();
+      this.audioSource.connect(this.analyser);
+      this.analyser.connect(this.audioCTX.destination);
+    }
+
+    if (this.audioCTX.state === 'suspended') {
+      this.audioCTX.resume();
+    }
+
+    return this.analyser;
+  }
+
+
   toggleMusic(musicStatus: boolean) {
-    this.audio.volume = this.volume / 100;
+    this.audio.volume = this.volume() / 100;
     if (musicStatus) {
-      if (this.musicUrl && this.audio.src !== this.musicUrl) {
-        this.audio.src = this.musicUrl;
+      if (this.musicUrl && this.audio.src !== this.musicUrl()) {
+        this.audio.src = this.musicUrl();
       }
       this.audio.play().then((val) => {
-        this.music_status = musicStatus
+        this.music_status.set(musicStatus)
         this.startTimer();
+        //this.playSound();
       });
     } else {
       this.audio.pause();
-      this.music_status = musicStatus
+      this.music_status.set(musicStatus)
       this.stopTimer();
     }
   }
 
   adjustVolumeSong(volume: number) {
-    this.volume = volume;
-    this.audio.volume = this.volume / 100;
+    this.volume.set(volume);
+    this.audio.volume = this.volume() / 100;
+  }
+
+  playSound() {
+    const oscillator = this.audioCTX.createOscillator();
+    oscillator.connect(this.audioCTX.destination);
+    oscillator.type = 'sine'; //sine, square, triangle, sine
+    oscillator.start();
+    setTimeout(() => {
+      oscillator.stop();
+    }, 1000)
   }
 
   updateProgress() {
@@ -103,9 +137,9 @@ export class SongService {
     } else {
       this.currentSongIndex = (this.currentSongIndex - 1 + this.songLinks.length) % this.songLinks.length;
     }
-    this.musicUrl = this.songLinks[this.currentSongIndex];
-    this.audio.src = this.musicUrl;
-    if (this.music_status) {
+    this.musicUrl.set(this.songLinks[this.currentSongIndex]);
+    this.audio.src = this.musicUrl();
+    if (this.music_status()) {
       this.audio.play();
     }
   }

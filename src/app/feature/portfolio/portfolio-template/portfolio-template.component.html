@@ -1,1 +1,7 @@
-<p>portfolio-template works!</p>
+<div class="portfolio-item fade-in" appIntersectionObserver>
+  <div class="portfolio-hover-effect">
+    {{MyPortfolio?.projectName}}
+  </div>
+  <img rel="prefetch" [src]="MyPortfolio?.imageLink" [alt]="MyPortfolio?.description" class="portfolio-image"
+    [alt]="MyPortfolio?.projectName">
+</div>

@@ -1,4 +1,5 @@
 <div class="flex items-center justify-center flex-col">
-  <app-profile-information [socialLinks]="socialLinks" [pfp]="pfp"></app-profile-information>
+  <app-profile-information [socialLinks]="socialLinks()" [pfp]="pfp()"></app-profile-information>
 </div>
-<app-navigation-buttons [activeSection]="activeSection" (closeSidebarEvent)="closeSidebar($event)"></app-navigation-buttons>
+<app-navigation-buttons [activeSection]="activeSection()"
+  (closeSidebarEvent)="closeSidebar($event)"></app-navigation-buttons>

@@ -12,11 +12,23 @@ import { ActivatedRoute } from '@angular/router';
 import { IAgnibhaProfile } from '../../shared/interface/IAgnibhaProfile.interface';
 import { SkillsComponent } from "../../feature/skills/skills.component";
 import { InterestsComponent } from "../../feature/interests/interests.component";
+import { SongService } from '../../shared/services/song/song.service';
+import { CloseComponent } from '../../shared/components/close/close.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [IndexComponent, AboutComponent, PortfolioComponent, ResumeComponent, ContactmeComponent, SidebarComponent, CommonModule, SkillsComponent, InterestsComponent],
+  imports: [
+    IndexComponent,
+    AboutComponent,
+    PortfolioComponent,
+    ResumeComponent,
+    ContactmeComponent,
+    SidebarComponent,
+    CommonModule,
+    SkillsComponent,
+    InterestsComponent,
+    CloseComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -36,8 +48,8 @@ export class HomeComponent {
   @ViewChild('resumeSection') resumeSection!: ElementRef;
   @ViewChild('portfolioSection') portfolioSection!: ElementRef;
   @ViewChild('contactSection') contactSection!: ElementRef;
-  agnibhaData: IAgnibhaProfile | null = null;
-
+  agnibhaData = signal<IAgnibhaProfile | null>(null)
+  @ViewChild('canvas', { static: false }) canvas!: ElementRef<HTMLCanvasElement>;
 
 
   // Declare subscribers here
@@ -47,12 +59,12 @@ export class HomeComponent {
   // Inject services here
   private scrollService = inject(SectionScrollService)
   private route = inject(ActivatedRoute)
+  public songService = inject(SongService)
 
 
   ngOnInit(): void {
     const user: IAgnibhaProfile = this.route.snapshot.data['user'];
-    this.agnibhaData = user;
-    console.log('User from resolver:', user);
+    this.agnibhaData.set(user);
   }
 
 
@@ -96,8 +108,8 @@ export class HomeComponent {
 
   //Highlight the button of the section which is visible--1
   onScroll(): void {
-    const container = this.scrollContainer.nativeElement;
-    const scrollTop = container.scrollTop;
+    const container = this.scrollContainer?.nativeElement;
+    const scrollTop = container?.scrollTop;
 
     const sections = [
       { name: 'indexSection', ref: this.indexSection },
@@ -109,7 +121,7 @@ export class HomeComponent {
 
     let current = sections[0].name;
     for (let section of sections) {
-      if (scrollTop >= section.ref.nativeElement.offsetTop - 10) {
+      if (scrollTop >= section?.ref?.nativeElement.offsetTop - 10) {
         current = section.name;
       }
     }
@@ -120,6 +132,68 @@ export class HomeComponent {
   //If in phone mode, a button of the sidebar is clicked, it will close the sidebar
   closeSidebar(close: boolean): void {
     this.sidebarOpen.set(close)
+  }
+
+
+  audio1() {
+    if (!this.canvas) return;
+
+    const canvasEl = this.canvas.nativeElement;
+
+    canvasEl.width = window.innerWidth
+    canvasEl.height = window.innerHeight
+
+
+    let ctx = this.canvas.nativeElement.getContext('2d')
+    if (!ctx) {
+      console.error('Canvas 2D context is not available.');
+      return;
+    }
+
+    const analyser = this.songService.getAnalyserNode();
+
+    analyser.fftSize = 64;
+
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+    const barbWidth = ((canvasEl.width / 2) / bufferLength);
+
+    const drawVisualizer = (
+      ctx: CanvasRenderingContext2D,
+      canvasEl: HTMLCanvasElement,
+      dataArray: Uint8Array,
+      bufferLength: number,
+      barWidth: number
+    ) => {
+      let x = 0;
+      for (let i = 0; i < bufferLength; i++) {
+        const barHeight = dataArray[i] / 3;
+        ctx.fillStyle = '#22C55E';
+        ctx.fillRect(canvasEl.width / 2 - x, canvasEl.height - barHeight, barWidth, barHeight);
+        x += barWidth;
+      }
+      for (let i = 0; i < bufferLength; i++) {
+        const barHeight = dataArray[i] / 3;
+        ctx.fillStyle = '#22C55E';
+        ctx.fillRect(x, canvasEl.height - barHeight, barWidth, barHeight);
+        x += barWidth;
+      }
+    };
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
+      analyser.getByteFrequencyData(dataArray);
+      drawVisualizer(ctx, canvasEl, dataArray, bufferLength, barbWidth);
+      requestAnimationFrame(animate);
+    };
+
+    animate()
+  }
+
+  music_play_status($event: boolean) {
+    if ($event) {
+      setTimeout(() => this.audio1(), 100);
+    }
   }
 
 }

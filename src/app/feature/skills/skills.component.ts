@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, QueryList, SimpleChange, SimpleChanges, ViewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, input, Input, QueryList, signal, SimpleChange, SimpleChanges, ViewChildren } from '@angular/core';
 import { SectionTitleComponent } from "../../shared/components/section-title/section-title.component";
 import { IAgnibhaProfile, Skill } from '../../shared/interface/IAgnibhaProfile.interface';
 import { DatePipe } from '@angular/common';
@@ -13,12 +13,12 @@ import { SkillTemplateComponent } from './skill-template/skill-template.componen
   standalone: true,
   imports: [SectionTitleComponent,IntersectionObserverDirective,SkillTemplateComponent],
   templateUrl: './skills.component.html',
-  styleUrl: './skills.component.css'
+  styleUrl: './skills.component.css',
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class SkillsComponent {
 
-  @Input()
-  skills?: Skill[] = [];
+  skills = input<Skill[]>([])
 
   
 

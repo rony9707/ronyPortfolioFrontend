@@ -10,10 +10,18 @@ describe('ResumeSummaryComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ResumeSummaryComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ResumeSummaryComponent);
     component = fixture.componentInstance;
+
+    (component as any).agnibhaData = () => ({
+      info: [
+        {}, {}, {}, {}, {}, {}, {}, {},
+        { value: 'test value' } // info[8].value
+      ]
+    });
+    
     fixture.detectChanges();
   });
 

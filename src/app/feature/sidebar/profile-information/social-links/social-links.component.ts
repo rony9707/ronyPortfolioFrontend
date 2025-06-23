@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, Input } from '@angular/core';
 import { SocialLink } from '../../../../shared/interface/IAgnibhaProfile.interface';
 
 @Component({
@@ -6,11 +6,11 @@ import { SocialLink } from '../../../../shared/interface/IAgnibhaProfile.interfa
   standalone: true,
   imports: [],
   templateUrl: './social-links.component.html',
-  styleUrl: './social-links.component.css'
+  styleUrl: './social-links.component.css',
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class SocialLinksComponent {
 
-  @Input()
-  socialLinks?: SocialLink[] = [];
+  socialLinks = input<SocialLink[]>([]);
 
 }

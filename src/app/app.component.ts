@@ -31,6 +31,7 @@ export class AppComponent {
     })
   }
 
+
   ngOnDestroy(): void {
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe()

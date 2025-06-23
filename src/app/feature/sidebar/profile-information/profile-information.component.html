@@ -1,12 +1,12 @@
 <div class="flex items-center justify-center flex-col gap-3">
 
-  @if(pfp){
-  <img [src]="pfp" class="rounded-full border-8" width="100px" height="100px"
+  @if(pfp()){
+  <img [src]="pfp()" alt="No Pfp" class="rounded-full border-8" width="100px" height="100px"
     style="border-color: color-mix(in srgb, #ffffff, transparent 85%);" priority/>
   }
 
   <div class="font-sans text-lg font-bold text-white cursor-default">Agnibha Chowdhury</div>
 
-  <app-social-links [socialLinks]="socialLinks"></app-social-links>
+  <app-social-links [socialLinks]="socialLinks()"></app-social-links>
 
 </div>

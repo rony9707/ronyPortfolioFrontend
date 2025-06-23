@@ -10,10 +10,18 @@ describe('AboutComponent', () => {
     await TestBed.configureTestingModule({
       imports: [AboutComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(AboutComponent);
     component = fixture.componentInstance;
+    (component as any).agnibhaData = () => ({
+      info: [
+        {}, {}, {}, {}, {}, {},
+        { value: 'test value' }, 
+        {}, {},{},{},{}
+      ]
+    });
+
     fixture.detectChanges();
   });
 

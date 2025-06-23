@@ -5,29 +5,37 @@
     @for(interest of interests; track interest.name){
 
     @if(interest.name=="Music"){
-    <div 
-    class="interest fade-in blink-element" appIntersectionObserver (click)="playSongs(!this.songService.music_status)">
-      @if(this.songService.music_status){
-      <div class="interest-logo">
-        <img class="interst_svg" (click)="playSongs(false); $event.stopPropagation()" src="assets/SVG/svg_interest/pause.svg" />
 
-        <input #songSlider type="range" [value]="songService.volume" class="volume-slider" min="0" max="100"
-          (input)="logRangeValue($event)" (click)="stopClickPropagation($event)">
-        <img (click)="nextSong()" class="interst_svg" src="assets/SVG/svg_interest/next.svg"
-          (click)="stopClickPropagation($event)">
-      </div>
-      <progress class="music-progress-bar" [value]="songProgress" max="100" (click)="seekToPosition($event)"
+    <div #container [ngClass]="{
+    'interest': true,
+    'fade-in': true,
+    'blink-element': true
+  }" appIntersectionObserver (click)="playSongs(!songService.music_status())">
+
+      @if(this.songService.music_status()){
+      <div class="interest-logo"></div>
+      <!-- <canvas #canvas class="audio-visualizer"></canvas> -->
+      <app-pause class="interst_svg" (click)="playSongs(false); $event.stopPropagation()"></app-pause>
+
+      <input #songSlider type="range" [value]="songService.volume()" class="volume-slider" min="0" max="100"
+        (input)="logRangeValue($event)" (click)="stopClickPropagation($event)">
+
+      <app-next (click)="nextSong()" class="interst_svg" src="assets/SVG/svg_interest/next.svg"
+        (click)="stopClickPropagation($event)"></app-next>
+
+      <progress class="music-progress-bar" [value]="songProgress()" max="100" (click)="seekToPosition($event)"
         (click)="stopClickPropagation($event)"></progress>
       }
       @else {
-      <div class="interest-logo"><img class="interst_svg" (click)="playSongs(true)" [src]="interest.logo"></div>
+      <div class="interest-logo"><img class="interst_svg" (click)="playSongs(true)" [alt]="interest.name" [src]="interest.logo" priority>
+      </div>
       <div class="interest-description">{{interest.name}}</div>
       }
     </div>
     }
     @else {
     <div class="interest fade-in" appIntersectionObserver>
-      <div class="interest-logo"><img class="interst_svg" [src]="interest.logo"></div>
+      <div class="interest-logo"><img class="interst_svg" [alt]="interest.name" [src]="interest.logo"></div>
       <div class="interest-description">{{interest.name}}</div>
     </div>
     }

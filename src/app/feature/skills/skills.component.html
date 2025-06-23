@@ -1,7 +1,7 @@
 <div class="container-template">
   <app-section-title class="fade-in" appIntersectionObserver>Skills</app-section-title>
   <div class="skills">
-    @for(skill of skills; track skill.type){
+    @for(skill of skills(); track skill.type){
     <app-skill-template [skill]="skill"></app-skill-template>
     }
   </div>

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, inject, input, Input, signal, ViewChild } from '@angular/core';
 import { Skill } from '../../../shared/interface/IAgnibhaProfile.interface';
 import { trigger, transition, style, animate, state } from '@angular/animations';
 import { IntersectionObserverDirective } from '../../../shared/directive/intersection-observer.directive';
@@ -20,50 +20,44 @@ import { IntersectionObserverDirective } from '../../../shared/directive/interse
       }), { params: { widthValue: 0 } }),
       transition('start => end', animate('1s'))
     ])
-  ]
+  ],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class SkillTemplateComponent {
 
-  //Decleare Properties here
   @ViewChild('templatePercentage', { static: false }) templatePercentage!: ElementRef;
   @ViewChild('skillTemplate', { static: false }) skillTemplate!: ElementRef;
-  percentage: number = 0;
-  animationState: string = 'start';
-  widthValue: number = 0;
 
-  @Input() skill?: Skill;
+  skill = input<Skill>();
 
-  //Inject Services here
-  private cdRef = inject(ChangeDetectorRef)
+  // Convert to signals
+  percentage = signal<number>(0);
+  animationState = signal<'start' | 'end'>('start');
+  widthValue = signal<number>(0);
+
+  private cdRef = inject(ChangeDetectorRef);
 
   ngAfterViewInit(): void {
-    this.percentage = parseFloat(this.templatePercentage.nativeElement.textContent.replace('%', ''));
-    // Set dynamic width value
+    const percentText = this.templatePercentage.nativeElement.textContent.replace('%', '');
+    this.percentage.set(parseFloat(percentText));
     this.setWidthValue();
 
-    // Create an IntersectionObserver
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          // Trigger animation
           setTimeout(() => {
-            this.animationState = 'end';
+            this.animationState.set('end');
           }, 100);
-
-          observer.disconnect(); // Stop observing once the div is visible
+          observer.disconnect();
         }
       });
     });
 
-    // Observe the target div
     observer.observe(this.skillTemplate.nativeElement);
   }
 
-
-  // set the width of the progress bar to the percentage
   private setWidthValue(): void {
-    this.widthValue = this.percentage;
-    this.cdRef.detectChanges(); // Manually trigger change detection
+    this.widthValue.set(this.percentage());
+    this.cdRef.detectChanges();
   }
-
 }

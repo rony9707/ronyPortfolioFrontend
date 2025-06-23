@@ -1,4 +1,4 @@
-import { Component, inject, Input, } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, input, Input, Output, signal, ViewChild, } from '@angular/core';
 import { SectionTitleComponent } from "../../shared/components/section-title/section-title.component";
 
 import { IntersectionObserverDirective } from '../../shared/directive/intersection-observer.directive';
@@ -7,12 +7,15 @@ import { MetricTemplateComponent } from '../about/metric-template/metric-templat
 import { SongService } from '../../shared/services/song/song.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { NextComponent } from "../../shared/components/next/next.component";
+import { PauseComponent } from "../../shared/components/pause/pause.component";
 @Component({
   selector: 'app-interests',
   standalone: true,
-  imports: [SectionTitleComponent, IntersectionObserverDirective,CommonModule],
+  imports: [SectionTitleComponent, IntersectionObserverDirective, CommonModule, NextComponent, PauseComponent],
   templateUrl: './interests.component.html',
   styleUrl: './interests.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InterestsComponent {
 
@@ -55,25 +58,37 @@ export class InterestsComponent {
 
   public songService = inject(SongService)
 
-  @Input()
-  songList?: string[] = [];
-  songProgress: number = 0;
-  currentSongIndex: number = 0;
+  songList = input<string[]>([])
+  songProgress = signal<number>(0)
+  @Output() music_play_status = new EventEmitter<boolean>();
 
   private updateSubscription: Subscription | undefined;
   private progressSubscription: Subscription | undefined;
 
+  @ViewChild('container') container!: ElementRef<HTMLDivElement>;
+  @ViewChild('canvas', { static: false }) canvas!: ElementRef<HTMLCanvasElement>;
+
+
   ngOnInit(): void {
-    if (this.songList) {
-      this.songService.setSongs(this.songList);
+    if (this.songList()) {
+      this.songService.setSongs(this.songList());
     }
     this.progressSubscription = this.songService.songProgress.subscribe(progress => {
-      this.songProgress = progress;
+      this.songProgress.set(progress);
     });
-
-
-
   }
+
+  ngAfterViewInit(): void {
+    if (!this.canvas || !this.container) return;
+
+    const canvasEl = this.canvas.nativeElement;
+    const containerEl = this.container.nativeElement;
+
+    // Set canvas size to match the container's size
+    canvasEl.width = containerEl.clientWidth;
+    canvasEl.height = containerEl.clientHeight;
+  }
+
 
   ngOnDestroy(): void {
     if (this.updateSubscription) {
@@ -86,6 +101,7 @@ export class InterestsComponent {
 
   playSongs(songStatus: boolean) {
     this.songService.toggleMusic(songStatus);
+    this.music_play_status.emit(songStatus)
   }
 
   logRangeValue(event: any) {
@@ -106,12 +122,10 @@ export class InterestsComponent {
 
   seekToPosition(event: MouseEvent) {
     const progressElement = event.target as HTMLElement;
-    //const { offsetWidth, offsetLeft } = progressElement;
-    //const clickX = event.pageX - offsetLeft;
     const seekPosition = (event.offsetX / progressElement.offsetWidth) * 100;
 
     if (!isNaN(seekPosition)) { // Check if the click event originated from the progress bar
-      this.songProgress = seekPosition;
+      this.songProgress.set(seekPosition);
 
       this.songService.seekToPosition(seekPosition);;
     }

@@ -1,16 +1,17 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, input, Input, ViewChild } from '@angular/core';
 import { Metric } from '../../../shared/interface/IAgnibhaProfile.interface';
+import { IntersectionObserverDirective } from '../../../shared/directive/intersection-observer.directive';
 
 @Component({
   selector: 'app-metric-template',
   standalone: true,
-  imports: [],
+  imports: [IntersectionObserverDirective],
   templateUrl: './metric-template.component.html',
-  styleUrl: './metric-template.component.css'
+  styleUrl: './metric-template.component.css',
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class MetricTemplateComponent {
-  @Input()
-  metric?: Metric
+  metric=input<Metric>()
 
   @ViewChild('metricCount', { static: false }) metricCount!: ElementRef;
   
@@ -34,7 +35,7 @@ export class MetricTemplateComponent {
   }
 
   startCounterAnimation(): void {
-    let target = this.metric?.count || 0;
+    let target = this.metric()!.count
     let currentCount = parseFloat(this.metricCount.nativeElement.textContent);
     let difference = target - currentCount;
     let duration = 2500;

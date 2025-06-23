@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SkillTemplateComponent } from './skill-template.component';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 describe('SkillTemplateComponent', () => {
   let component: SkillTemplateComponent;
@@ -8,7 +9,8 @@ describe('SkillTemplateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SkillTemplateComponent]
+      imports: [SkillTemplateComponent],
+      providers:[provideAnimations()]
     })
     .compileComponents();
 

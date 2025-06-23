@@ -1,12 +1,22 @@
 <div class="container-template">
-  <app-section-title class="fade-in" appIntersectionObserver>Skills</app-section-title>
+  <app-section-title class="fade-in" appIntersectionObserver>Portfolio</app-section-title>
 
+  <!-- Filter Buttons -->
+  <div class="filter-buttons">
+    <button 
+      (click)="filterPortfolios('All')" 
+      [class.active]="selectedType() === 'All'">All</button>
 
-  <!-- <div class="portfolio-main" *ngIf="!selectedProject" @scaleOut>
-    <ng-container *ngFor="let metricKey of getMetricKeys();">
-      <app-portfolio-template (click)="selectProjectLocation($event, metricKey)"
-        [MyPortfolios]="MyPortfolioObject[metricKey]">
-      </app-portfolio-template>
-    </ng-container>
-  </div> -->
+    @for(type of uniqueTypes(); track type) {
+      <button 
+        (click)="filterPortfolios(type)" 
+        [class.active]="selectedType() === type">{{ type }}</button>
+    }
+  </div>
+
+  <div class="portfolio-main">
+    @for(portfolio of filteredPortfolios(); track portfolio.projectName) {
+      <app-portfolio-template [MyPortfolio]="portfolio"></app-portfolio-template>
+    }
+  </div>
 </div>
