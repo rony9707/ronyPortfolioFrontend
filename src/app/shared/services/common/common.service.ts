@@ -88,4 +88,29 @@ export class CommonService {
 
     return totalHours;
   }
+
+
+
+  makeCall(phoneNumber: string): void {
+    window.location.href = `tel:${phoneNumber}`;
+    // or
+    window.open(`tel:${phoneNumber}`, '_self');
+  }
+
+  sendEmail(email: string): void {
+    window.location.href = `mailto:${email}`;
+    // or
+    window.open(`mailto:${email}`, '_self');
+  }
+
+  messageUserWithText(userEmail: string, message?: string) {
+    let teamsUrl = `https://teams.microsoft.com/l/chat/0/0?users=${userEmail}`;
+
+    if (message && message.trim() !== '') {
+      const encodedMessage = encodeURIComponent(message);
+      teamsUrl += `&message=${encodedMessage}`;
+    }
+
+    window.open(teamsUrl, '_blank');
+  }
 }

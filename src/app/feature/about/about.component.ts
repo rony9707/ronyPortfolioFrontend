@@ -13,12 +13,12 @@ import { CommonService } from '../../shared/services/common/common.service';
   imports: [SectionTitleComponent, DatePipe, CalculateAgePipe, IntersectionObserverDirective, MetricTemplateComponent],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css',
-  changeDetection:ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AboutComponent {
 
   //Decleare Properties here
-  agnibhaData=input<IAgnibhaProfile | null>(null)
+  agnibhaData = input<IAgnibhaProfile | null>(null)
   website: string = window.location.origin
 
   //inject services here
@@ -41,7 +41,6 @@ export class AboutComponent {
       }
     }
   }
-
 
 
 }

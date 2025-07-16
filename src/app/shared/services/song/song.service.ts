@@ -1,5 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import swal from 'sweetalert2';
+
 
 @Injectable({
   providedIn: 'root'
@@ -77,9 +79,20 @@ export class SongService {
         this.audio.src = this.musicUrl();
       }
       this.audio.play().then((val) => {
-        this.music_status.set(musicStatus)
+        this.music_status.set(musicStatus);
         this.startTimer();
-        //this.playSound();
+        // this.playSound();
+      }).catch((error) => {
+        swal.fire({
+          icon: 'error',
+          title: 'Audio Playback Error',
+          background: '#e9f7ef',
+          customClass: {
+            confirmButton: 'bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700',
+            cancelButton: 'bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700'
+          },
+          text: `${error.message}`,
+        });
       });
     } else {
       this.audio.pause();

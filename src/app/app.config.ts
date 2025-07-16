@@ -5,13 +5,13 @@ import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
-// const scrollConfig: InMemoryScrollingOptions = {
-//   scrollPositionRestoration: 'top',
-//   anchorScrolling: 'enabled',
-// };
+const scrollConfig: InMemoryScrollingOptions = {
+  scrollPositionRestoration: 'enabled',
+  anchorScrolling: 'enabled',
+};
 
-// const inMemoryScrollingFeature: InMemoryScrollingFeature =
-//   withInMemoryScrolling(scrollConfig);
+const inMemoryScrollingFeature: InMemoryScrollingFeature =
+  withInMemoryScrolling(scrollConfig);
 
 
 export const appConfig: ApplicationConfig = {

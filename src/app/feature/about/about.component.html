@@ -6,7 +6,7 @@
 
   <div class="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-start mt-5 gap-8">
     <!-- Image -->
-    <img [src]="agnibhaData()!.info[10].value" [alt]="agnibhaData()!.info[10].key" 
+    <img [src]="agnibhaData()!.info[10].value" [alt]="agnibhaData()!.info[10].key"
       class="w-64 sm:w-72 md:w-80 lg:w-80 h-auto object-cover rounded-lg shadow-md fade-in" appIntersectionObserver
       priority />
 
@@ -39,6 +39,8 @@
             <span class="font-semibold">Phone:</span> {{ agnibhaData()!.info[2].value}}
             <i (click)="commonService.copyToClipboard(agnibhaData()!.info[2].value)"
               class="fa fa-clone ml-1 cursor-pointer text-green-500"></i>
+            <i (click)="commonService.makeCall(agnibhaData()!.info[2].value)"
+              class="fa fa-phone-square fa-lg ml-1 cursor-pointer xl:hidden text-green-500"></i>
           </li>
           <li class="beforeEachSection fade-in" appIntersectionObserver>
             <span class="font-semibold">City:</span> {{agnibhaData()!.info[7].value}}
@@ -57,6 +59,8 @@
             <span class="font-semibold">Email:</span> {{agnibhaData()!.info[5].value}}
             <i (click)="commonService.copyToClipboard(agnibhaData()!.info[5].value)"
               class="fa fa-clone ml-1 cursor-pointer text-green-500"></i>
+            <i (click)="commonService.sendEmail(agnibhaData()!.info[5].value)"
+              class="fa fa-envelope ml-1 cursor-pointer text-green-500"></i>
           </li>
           <li class="beforeEachSection fade-in" appIntersectionObserver>
             <span class="font-semibold">Languages known:</span> {{agnibhaData()!.info[4].value}}

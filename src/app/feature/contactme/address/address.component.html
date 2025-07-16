@@ -5,10 +5,9 @@
     </div>
     <div class="ml-5 flex-grow flex flex-col justify-center">
       <div class="text-lg font-bold">Address</div>
-      <div class="text-sm">{{agnibhaData()!.info[8].value}} <i
+      <div class="text-sm break-words">{{agnibhaData()!.info[8].value}} <i
           (click)="commonService.copyToClipboard(agnibhaData()!.info[8].value)"
           class="fa fa-clone ml-1 cursor-pointer text-green-500"></i></div>
-
     </div>
   </div>
 
@@ -18,8 +17,12 @@
     </div>
     <div class="ml-5 flex-grow flex flex-col justify-center">
       <div class="text-lg font-bold">Call Me</div>
-      <div class="text-sm">{{agnibhaData()!.info[2].value}}<i (click)="commonService.copyToClipboard(agnibhaData()!.info[2].value)"
-          class="fa fa-clone ml-1 cursor-pointer text-green-500"></i></div>
+      <div class="text-sm break-words">{{agnibhaData()!.info[2].value}}
+        <i (click)="commonService.copyToClipboard(agnibhaData()!.info[2].value)"
+          class="fa fa-clone ml-1 cursor-pointer text-green-500"></i>
+        <i (click)="commonService.makeCall(agnibhaData()!.info[2].value)"
+          class="fa fa-phone-square fa-lg xl:hidden ml-1 cursor-pointer text-green-500"></i>
+      </div>
     </div>
   </div>
 
@@ -30,8 +33,12 @@
     </div>
     <div class="ml-5 flex-grow flex flex-col justify-center">
       <div class="text-lg font-bold">Email</div>
-      <div class="text-sm">{{agnibhaData()!.info[5].value}}<i (click)="commonService.copyToClipboard(agnibhaData()!.info[5].value)"
-          class="fa fa-clone ml-1 cursor-pointer text-green-500"></i></div>
+      <div class="text-sm break-words">{{agnibhaData()!.info[5].value}}
+        <i (click)="commonService.copyToClipboard(agnibhaData()!.info[5].value)"
+          class="fa fa-clone ml-1 cursor-pointer text-green-500"></i>
+        <i (click)="commonService.sendEmail(agnibhaData()!.info[5].value)"
+          class="fa fa-envelope ml-1 cursor-pointer text-green-500"></i>
+      </div>
     </div>
   </div>
 
@@ -40,6 +47,5 @@
 <div class="touch-pan-x pb-6 touch-pan-y fade-in" appIntersectionObserver>
   <iframe class="w-full h-full" title="location"
     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5207.763595006617!2d88.40834558149784!3d22.637181741311156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f89e6d45b4617d%3A0xeaaa11462b70357b!2sDum%20Dum%20Cantonment!5e0!3m2!1sen!2sin!4v1748711985791!5m2!1sen!2sin&z=25"
-    allowfullscreen="" style="border: none;"  loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade"></iframe>
+    allowfullscreen="" style="border: none;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
