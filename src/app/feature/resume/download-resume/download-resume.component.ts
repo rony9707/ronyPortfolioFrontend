@@ -1,6 +1,7 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, OnDestroy } from '@angular/core';
 import swal from 'sweetalert2';
 import { BackendService } from '../../../shared/services/backend/backend.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-download-resume',
@@ -9,12 +10,19 @@ import { BackendService } from '../../../shared/services/backend/backend.service
   templateUrl: './download-resume.component.html',
   styleUrl: './download-resume.component.css'
 })
-export class DownloadResumeComponent {
+export class DownloadResumeComponent implements OnDestroy {
 
   @Input() resumeDownloadLink?: string;
 
   loading = false;
   private backendServer = inject(BackendService);
+  $backendServerSubscription!: Subscription | undefined;
+
+  ngOnDestroy(): void {
+    if (this.$backendServerSubscription) {
+      this.$backendServerSubscription.unsubscribe()
+    }
+  }
 
   download(): void {
     if (!this.resumeDownloadLink) {
@@ -82,7 +90,7 @@ export class DownloadResumeComponent {
           return false;
         }
 
-        this.backendServer.sentResumePassword({ email }).subscribe({
+        this.$backendServerSubscription = this.backendServer.sentResumePassword({ email }).subscribe({
           next: (res) => {
             swal.fire({
               title: 'Email Sent Successfully',

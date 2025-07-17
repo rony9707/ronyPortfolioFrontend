@@ -62,7 +62,6 @@ export class InterestsComponent {
   songProgress = signal<number>(0)
   @Output() music_play_status = new EventEmitter<boolean>();
 
-  private updateSubscription: Subscription | undefined;
   private progressSubscription: Subscription | undefined;
 
   @ViewChild('container') container!: ElementRef<HTMLDivElement>;
@@ -91,9 +90,6 @@ export class InterestsComponent {
 
 
   ngOnDestroy(): void {
-    if (this.updateSubscription) {
-      this.updateSubscription.unsubscribe();
-    }
     if (this.progressSubscription) {
       this.progressSubscription.unsubscribe();
     }

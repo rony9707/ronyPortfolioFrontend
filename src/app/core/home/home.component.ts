@@ -51,6 +51,9 @@ export class HomeComponent {
   agnibhaData = signal<IAgnibhaProfile | null>(null)
   @ViewChild('canvas', { static: false }) canvas!: ElementRef<HTMLCanvasElement>;
 
+  //FIx memory Leak
+  private animationFrameId: number | null = null;
+
 
   // Declare subscribers here
   private $scrollSub!: Subscription;
@@ -184,7 +187,7 @@ export class HomeComponent {
       ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
       analyser.getByteFrequencyData(dataArray);
       drawVisualizer(ctx, canvasEl, dataArray, bufferLength, barbWidth);
-      requestAnimationFrame(animate);
+      this.animationFrameId = requestAnimationFrame(animate);
     };
 
     animate()
@@ -193,7 +196,14 @@ export class HomeComponent {
   music_play_status($event: boolean) {
     if ($event) {
       setTimeout(() => this.audio1(), 100);
+    } else {
+      if (this.animationFrameId !== null) {
+        cancelAnimationFrame(this.animationFrameId);
+        console.log(this.animationFrameId)
+        this.animationFrameId = null;
+      }
     }
   }
+
 
 }

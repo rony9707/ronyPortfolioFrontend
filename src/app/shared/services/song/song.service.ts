@@ -29,14 +29,24 @@ export class SongService {
   constructor() {
     this.audio.crossOrigin = 'anonymous';
 
-    this.audio.addEventListener('timeupdate', () => {
-      this.updateProgress();
-      this.updateTimer();
-    });
-    this.audio.addEventListener('ended', () => {
-      this.changeSong(true); // Automatically play the next song
-    });
+    this.audio.addEventListener('timeupdate', this.onTimeUpdate);
+    this.audio.addEventListener('ended', this.onEnded);
   }
+
+  ngOnDestroy() {
+    this.audio.removeEventListener('timeupdate', this.onTimeUpdate);
+    this.audio.removeEventListener('ended', this.onEnded);
+  }
+
+  private onTimeUpdate = () => {
+    this.updateProgress();
+    this.updateTimer();
+  };
+
+  private onEnded = () => {
+    this.changeSong(true);
+  };
+
 
   getAudioElement(): HTMLAudioElement {
     return this.audio;

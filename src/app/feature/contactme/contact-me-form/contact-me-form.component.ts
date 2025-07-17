@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnInit, Output, QueryList, ViewChild, ViewChildren, EventEmitter, AfterViewChecked } from '@angular/core';
+import { Component, ElementRef, OnInit, Output, QueryList, ViewChild, ViewChildren, EventEmitter, AfterViewChecked, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import swal from 'sweetalert2';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IntersectionObserverDirective } from '../../../shared/directive/intersection-observer.directive';
+import { BackendService } from '../../../shared/services/backend/backend.service';
 
 @Component({
   selector: 'app-contact-me-form',
@@ -17,23 +18,9 @@ export class ContactMeFormComponent {
   @ViewChildren('inputField') inputFields: QueryList<ElementRef> | undefined;
   @ViewChild('ConnectMeButton') ConnectMeButton: ElementRef | undefined;
 
-  @Output()
-  DataInForm: EventEmitter<object> = new EventEmitter<object>();
-  @Output()
-  anyFieldTouchedStatus: EventEmitter<boolean> = new EventEmitter<boolean>();
-
   loading: boolean = false;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  ngAfterViewChecked(): void {
-    //Sent Formdata to Parent Compoent
-    this.DataInForm.emit(this.sendMessage.value)//Sending data to parent compoent
-    this.touchedOrNot();
-  }
+  private backendServer = inject(BackendService);
 
 
   // Form Group and Form Control Validators
@@ -44,17 +31,6 @@ export class ContactMeFormComponent {
     message: new FormControl('', [Validators.required])
   });
 
-
-  // canExit(): boolean {
-  //   if (this.sendMessage.value.fullname === '' ||
-  //       this.sendMessage.value.email === '' ||
-  //       this.sendMessage.value.subject === '' ||
-  //       this.sendMessage.value.message === '') {
-  //     return confirm("You have unsaved changes. Do you want to navigate away?");
-  //   } else {
-  //     return true;
-  //   }
-  // }
 
   sendMessageEmail() {
 
@@ -79,7 +55,33 @@ export class ContactMeFormComponent {
       // Perform the form submission here
       this.loading = true;
       //Sent Email to the user
-      console.log(this.sendMessage.value)
+      this.backendServer.sentEmailConnectWithMe(this.sendMessage.value).subscribe(
+        (res) => {
+
+
+          swal.fire({
+            title: "Email Sent successfully",
+            text: res.message,
+            icon: "success",
+            timer: 1500, // Auto close after 2 seconds
+            timerProgressBar: true, // Show progress bar
+            showConfirmButton: false // Hide the "OK" button
+          });
+
+          this.loading = false;
+          this.sendMessage.reset();
+
+        },
+        (err) => {
+          console.log(err)
+          this.loading = false;
+          swal.fire({
+            title: "Error",
+            text: err?.error?.message || "Something went wrong!",
+            icon: "error"
+          });
+        }
+      )
     }
   }
 
@@ -132,14 +134,4 @@ export class ContactMeFormComponent {
 
   fieldisTouched = false
 
-  touchedOrNot() {
-    if (this.inputFields) {
-      this.inputFields.forEach((field: ElementRef) => {
-        field.nativeElement.addEventListener('blur', () => {
-          this.fieldisTouched = true;
-          this.anyFieldTouchedStatus.emit(this.fieldisTouched); // Emit the status if necessary
-        });
-      });
-    }
-  }
 }
