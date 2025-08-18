@@ -5,7 +5,7 @@
   <div class="absolute top-0 right-0 mr-5 mt-2 cursor-pointer z-50 xl:hidden animate-fade-slide-down"
     (click)="sidebarOpen.set(!sidebarOpen())">
     @if (!sidebarOpen()) {
-    <img class="w-8" src="assets/SVG/hamburger_open.svg" alt="open"/>
+    <img class="w-8" src="assets/SVG/hamburger_open.svg" alt="open" />
     } @else {
     <app-close></app-close>
     }
@@ -35,7 +35,7 @@
     <canvas #canvas class="audio-visualizer"></canvas>
     }
     <!-- Home Section -->
-    <div #indexSection class="section even" id="indexSection">
+    <div #indexSection class="even" id="indexSection">
       <app-index [videoBg]="agnibhaData()!.info[12]!.value"></app-index>
     </div>
 
@@ -76,5 +76,11 @@
       <app-contactme [agnibhaData]="agnibhaData()"></app-contactme>
     </div>
 
+    <!-- Footer Section -->
+         <!-- Contact Me Section -->
+    <div #contactSection class="pt-10 pb-10 odd">
+      <app-footer></app-footer>
+    </div>
+    
   </div>
 </div>

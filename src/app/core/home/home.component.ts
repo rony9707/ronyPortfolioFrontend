@@ -14,6 +14,7 @@ import { SkillsComponent } from "../../feature/skills/skills.component";
 import { InterestsComponent } from "../../feature/interests/interests.component";
 import { SongService } from '../../shared/services/song/song.service';
 import { CloseComponent } from '../../shared/components/close/close.component';
+import { FooterComponent } from "../../feature/footer/footer.component";
 
 @Component({
   selector: 'app-home',
@@ -28,7 +29,9 @@ import { CloseComponent } from '../../shared/components/close/close.component';
     CommonModule,
     SkillsComponent,
     InterestsComponent,
-    CloseComponent],
+    CloseComponent,
+    FooterComponent
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -171,16 +174,44 @@ export class HomeComponent {
       let x = 0;
       for (let i = 0; i < bufferLength; i++) {
         const barHeight = dataArray[i] / 3;
-        ctx.fillStyle = '#22C55E';
+
+        // Fill with opacity (0.6 = 60% opaque)
+        ctx.fillStyle = 'rgba(34, 197, 94, 0.6)';
         ctx.fillRect(canvasEl.width / 2 - x, canvasEl.height - barHeight, barWidth, barHeight);
+
+        // Border with opacity (0.8 = 80% opaque)
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.8)';
+        ctx.beginPath();
+        ctx.moveTo(canvasEl.width / 2 - x, canvasEl.height - barHeight); // top-left
+        ctx.lineTo(canvasEl.width / 2 - x + barWidth, canvasEl.height - barHeight); // top-right
+        ctx.lineTo(canvasEl.width / 2 - x + barWidth, canvasEl.height); // bottom-right
+        ctx.moveTo(canvasEl.width / 2 - x, canvasEl.height - barHeight); // top-left
+        ctx.lineTo(canvasEl.width / 2 - x, canvasEl.height); // bottom-left
+        ctx.stroke();
+
         x += barWidth;
       }
+
       for (let i = 0; i < bufferLength; i++) {
         const barHeight = dataArray[i] / 3;
-        ctx.fillStyle = '#22C55E';
+
+        // Fill with opacity
+        ctx.fillStyle = 'rgba(34, 197, 94, 0.6)';
         ctx.fillRect(x, canvasEl.height - barHeight, barWidth, barHeight);
+
+        // Border with opacity
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.8)';
+        ctx.beginPath();
+        ctx.moveTo(x, canvasEl.height - barHeight); // top-left
+        ctx.lineTo(x + barWidth, canvasEl.height - barHeight); // top-right
+        ctx.lineTo(x + barWidth, canvasEl.height); // bottom-right
+        ctx.moveTo(x, canvasEl.height - barHeight); // top-left
+        ctx.lineTo(x, canvasEl.height); // bottom-left
+        ctx.stroke();
+
         x += barWidth;
       }
+
     };
 
     const animate = () => {

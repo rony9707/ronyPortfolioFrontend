@@ -20,4 +20,5 @@
   left: 0;
   height: 100dvh;
   width: 100vw;
+  cursor: default;
 }
