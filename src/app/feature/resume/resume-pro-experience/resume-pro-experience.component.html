@@ -5,16 +5,22 @@
 
 
 <div class="resume-summary common">
-  <div class="subheading">Agnibha Chowdhury</div>
+
+  <app-experience-timeline-component [experiences]="experiences"
+    [activeCompany]="activeCompany"></app-experience-timeline-component>
 
 
   @for (experience of experiences; track experience.company; let i = $index; let isLast = $last) {
-  <div (click)="toggle(i)" class="accordion-header fade-in" appIntersectionObserver>
+  <div (click)="toggle(i)" class="accordion-header fade-in" (mouseenter)="hoveredIndex = i; updateActiveCompany()"
+    (mouseleave)="hoveredIndex = null; updateActiveCompany()" appIntersectionObserver>
+
     <div>{{ experience.company }}</div>
     <div>{{ experience.duration }} | {{ experience.location }}</div>
   </div>
 
-  <div [@slideToggle]="isOpen(i) || isLast && openIndex === null ? 'open' : 'closed'" class="accordion-body fade-in" appIntersectionObserver>
+  <div [@slideToggle]="isOpen(i) || isLast && openIndex === null ? 'open' : 'closed'" class="accordion-body fade-in"
+    (mouseenter)="hoveredIndex = i; updateActiveCompany()" (mouseleave)="hoveredIndex = null; updateActiveCompany()"
+    appIntersectionObserver>
     <div class="accordion-content">
       <ul>
         @for (responsibility of experience.responsibilities; track $index) {
@@ -24,9 +30,4 @@
     </div>
   </div>
   }
-
-
-
-
-
 </div>

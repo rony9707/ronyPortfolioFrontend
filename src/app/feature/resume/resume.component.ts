@@ -23,7 +23,7 @@ export class ResumeComponent {
   //Decleare Properties here
   agnibhaData = input<IAgnibhaProfile | null>(null)
   @Input()
-  experience?: Experience[] = [];
+  experience: Experience[] = [];
   @Input()
   resumeDownloadLink?: string
 

@@ -1,0 +1,50 @@
+/* Track */
+.timeline-track {
+  position: relative;
+  height: 8px;
+  margin: 20px 0;
+}
+
+.timeline-bar {
+  position: absolute;
+  inset: 0;
+  height: 3px; 
+  top: 50%;
+  transform: translateY(-50%);
+  background: #e5e7eb;
+}
+
+/* Segments */
+.timeline-segment {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 7px; 
+  border-radius: 10px; 
+  background: #d1d5db;
+  transition: background 0.2s ease;
+}
+
+.timeline-segment.active {
+  background: var(--site-accent);
+}
+
+
+.segment-label {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  white-space: nowrap;
+  pointer-events: none;
+  color: var(--site-accent);
+
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Show only on hover / active */
+.timeline-segment.active .segment-label {
+  opacity: 1;
+}

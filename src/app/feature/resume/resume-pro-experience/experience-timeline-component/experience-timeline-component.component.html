@@ -1,0 +1,19 @@
+<div class="timeline-wrapper">
+  <div class="timeline-track">
+    <div class="timeline-bar"></div>
+
+    @for (exp of experiences; track exp.company) {
+      <div
+        class="timeline-segment"
+        [class.active]="activeCompany === exp.company"
+        [ngStyle]="getSegmentStyle(exp)">
+
+        <!-- LABEL -->
+        <span class="segment-label" [class.active]="activeCompany === exp.company">
+          {{ exp.company }}
+        </span>
+
+      </div>
+    }
+  </div>
+</div>

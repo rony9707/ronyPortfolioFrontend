@@ -33,7 +33,7 @@ export class ContactMeFormComponent {
 
 
   sendMessageEmail() {
-
+    this.sendMessage.markAllAsTouched()
 
     //Handle Button Click Effect Here
     if (this.ConnectMeButton) {

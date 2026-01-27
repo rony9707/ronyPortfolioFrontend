@@ -60,7 +60,7 @@
 
     <!-- Resume Section -->
     <div #resumeSection class="pt-10 pb-10 even" id="resumeSection">
-      <app-resume [experience]="agnibhaData()?.experiences" [agnibhaData]="agnibhaData()"
+      <app-resume [experience]="agnibhaData()!.experiences" [agnibhaData]="agnibhaData()"
         [resumeDownloadLink]="agnibhaData()!.info[11]!.value"></app-resume>
     </div>
 
