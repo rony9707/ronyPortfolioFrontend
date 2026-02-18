@@ -1,20 +1,29 @@
-import { Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
-import { IndexComponent } from "../../feature/index/index.component";
-import { AboutComponent } from "../../feature/about/about.component";
-import { PortfolioComponent } from "../../feature/portfolio/portfolio.component";
-import { ResumeComponent } from "../../feature/resume/resume.component";
-import { ContactmeComponent } from "../../feature/contactme/contactme.component";
-import { SidebarComponent } from "../../feature/sidebar/sidebar.component";
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+  ViewChild,
+} from '@angular/core';
+import { IndexComponent } from '../../feature/index/index.component';
+import { AboutComponent } from '../../feature/about/about.component';
+import { PortfolioComponent } from '../../feature/portfolio/portfolio.component';
+import { ResumeComponent } from '../../feature/resume/resume.component';
+import { ContactmeComponent } from '../../feature/contactme/contactme.component';
+import { SidebarComponent } from '../../feature/sidebar/sidebar.component';
 import { SectionScrollService } from '../services/sectionScroll/section-scroll.service';
 import { Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { IAgnibhaProfile } from '../../shared/interface/IAgnibhaProfile.interface';
-import { SkillsComponent } from "../../feature/skills/skills.component";
-import { InterestsComponent } from "../../feature/interests/interests.component";
+import { SkillsComponent } from '../../feature/skills/skills.component';
+import { InterestsComponent } from '../../feature/interests/interests.component';
 import { SongService } from '../../shared/services/song/song.service';
 import { CloseComponent } from '../../shared/components/close/close.component';
-import { FooterComponent } from "../../feature/footer/footer.component";
+import { FooterComponent } from '../../feature/footer/footer.component';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -26,17 +35,16 @@ import { FooterComponent } from "../../feature/footer/footer.component";
     ResumeComponent,
     ContactmeComponent,
     SidebarComponent,
-    CommonModule,
     SkillsComponent,
     InterestsComponent,
     CloseComponent,
-    FooterComponent
+    FooterComponent,
+    NgClass
   ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
-export class HomeComponent {
-
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   //FUNCTIONALITY of this component
   //   1. Which section to navigate coming from "Navigation Button Component"
   //   2. Highlight the button of the sction section
@@ -51,31 +59,28 @@ export class HomeComponent {
   @ViewChild('resumeSection') resumeSection!: ElementRef;
   @ViewChild('portfolioSection') portfolioSection!: ElementRef;
   @ViewChild('contactSection') contactSection!: ElementRef;
-  agnibhaData = signal<IAgnibhaProfile | null>(null)
-  @ViewChild('canvas', { static: false }) canvas!: ElementRef<HTMLCanvasElement>;
+  agnibhaData = signal<IAgnibhaProfile | null>(null);
+  @ViewChild('canvas', { static: false })
+  canvas!: ElementRef<HTMLCanvasElement>;
 
   //FIx memory Leak
   private animationFrameId: number | null = null;
 
-
   // Declare subscribers here
   private $scrollSub!: Subscription;
 
-
   // Inject services here
-  private scrollService = inject(SectionScrollService)
-  private route = inject(ActivatedRoute)
-  public songService = inject(SongService)
-
+  private scrollService = inject(SectionScrollService);
+  private route = inject(ActivatedRoute);
+  public songService = inject(SongService);
 
   ngOnInit(): void {
     const user: IAgnibhaProfile = this.route.snapshot.data['user'];
     this.agnibhaData.set(user);
   }
 
-
   ngAfterViewInit(): void {
-    this.$scrollSub = this.scrollService.section$.subscribe(sectionName => {
+    this.$scrollSub = this.scrollService.section$.subscribe((sectionName) => {
       //which section to navigate coming from "Navigation Button Component"
       this.scrollToSection(sectionName);
     });
@@ -90,12 +95,12 @@ export class HomeComponent {
 
   //which section to navigate coming from "Navigation Button Component"--1
   scrollToSection(sectionName: string): void {
-    const sectionMap: { [key: string]: ElementRef } = {
+    const sectionMap: Record<string, ElementRef> = {
       indexSection: this.indexSection,
       aboutSection: this.aboutSection,
       resumeSection: this.resumeSection,
       portfolioSection: this.portfolioSection,
-      contactSection: this.contactSection
+      contactSection: this.contactSection,
     };
 
     const targetRef = sectionMap[sectionName];
@@ -111,7 +116,6 @@ export class HomeComponent {
     }
   }
 
-
   //Highlight the button of the section which is visible--1
   onScroll(): void {
     const container = this.scrollContainer?.nativeElement;
@@ -122,7 +126,7 @@ export class HomeComponent {
       { name: 'aboutSection', ref: this.aboutSection },
       { name: 'resumeSection', ref: this.resumeSection },
       { name: 'portfolioSection', ref: this.portfolioSection },
-      { name: 'contactSection', ref: this.contactSection }
+      { name: 'contactSection', ref: this.contactSection },
     ];
 
     let current = sections[0].name;
@@ -137,20 +141,18 @@ export class HomeComponent {
 
   //If in phone mode, a button of the sidebar is clicked, it will close the sidebar
   closeSidebar(close: boolean): void {
-    this.sidebarOpen.set(close)
+    this.sidebarOpen.set(close);
   }
-
 
   audio1() {
     if (!this.canvas) return;
 
     const canvasEl = this.canvas.nativeElement;
 
-    canvasEl.width = window.innerWidth
-    canvasEl.height = window.innerHeight
+    canvasEl.width = window.innerWidth;
+    canvasEl.height = window.innerHeight;
 
-
-    let ctx = this.canvas.nativeElement.getContext('2d')
+    const ctx = this.canvas.nativeElement.getContext('2d');
     if (!ctx) {
       console.error('Canvas 2D context is not available.');
       return;
@@ -162,14 +164,14 @@ export class HomeComponent {
 
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
-    const barbWidth = ((canvasEl.width / 2) / bufferLength);
+    const barbWidth = canvasEl.width / 2 / bufferLength;
 
     const drawVisualizer = (
       ctx: CanvasRenderingContext2D,
       canvasEl: HTMLCanvasElement,
       dataArray: Uint8Array,
       bufferLength: number,
-      barWidth: number
+      barWidth: number,
     ) => {
       let x = 0;
       for (let i = 0; i < bufferLength; i++) {
@@ -177,13 +179,21 @@ export class HomeComponent {
 
         // Fill with opacity (0.6 = 60% opaque)
         ctx.fillStyle = 'rgba(34, 197, 94, 0.6)';
-        ctx.fillRect(canvasEl.width / 2 - x, canvasEl.height - barHeight, barWidth, barHeight);
+        ctx.fillRect(
+          canvasEl.width / 2 - x,
+          canvasEl.height - barHeight,
+          barWidth,
+          barHeight,
+        );
 
         // Border with opacity (0.8 = 80% opaque)
         ctx.strokeStyle = 'rgba(0, 0, 0, 0.8)';
         ctx.beginPath();
         ctx.moveTo(canvasEl.width / 2 - x, canvasEl.height - barHeight); // top-left
-        ctx.lineTo(canvasEl.width / 2 - x + barWidth, canvasEl.height - barHeight); // top-right
+        ctx.lineTo(
+          canvasEl.width / 2 - x + barWidth,
+          canvasEl.height - barHeight,
+        ); // top-right
         ctx.lineTo(canvasEl.width / 2 - x + barWidth, canvasEl.height); // bottom-right
         ctx.moveTo(canvasEl.width / 2 - x, canvasEl.height - barHeight); // top-left
         ctx.lineTo(canvasEl.width / 2 - x, canvasEl.height); // bottom-left
@@ -211,7 +221,6 @@ export class HomeComponent {
 
         x += barWidth;
       }
-
     };
 
     const animate = () => {
@@ -221,7 +230,7 @@ export class HomeComponent {
       this.animationFrameId = requestAnimationFrame(animate);
     };
 
-    animate()
+    animate();
   }
 
   music_play_status($event: boolean) {
@@ -230,11 +239,8 @@ export class HomeComponent {
     } else {
       if (this.animationFrameId !== null) {
         cancelAnimationFrame(this.animationFrameId);
-        console.log(this.animationFrameId)
         this.animationFrameId = null;
       }
     }
   }
-
-
 }

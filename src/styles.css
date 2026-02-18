@@ -1,11 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Martian+Mono:wght@200&family=Oswald:wght@600&family=Poppins:wght@500&family=Quicksand:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Martian+Mono:wght@200&family=Oswald:wght@600&family=Poppins:wght@500&family=Quicksand:wght@700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
 
 * {
   margin: 0;
@@ -16,11 +14,13 @@
   @apply w-full max-w-[83.333333%] mx-auto p-4 sm:p-0 min-w-0 sm:min-w-[1000px];
 }
 
-body { margin: 0; font-family: "Poppins",sans-serif; }
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
 
-
-:root{
-  --site-accent: #22C55E;
+:root {
+  --site-accent: #22c55e;
 }
 
 /* For Scroll Animation */
@@ -35,9 +35,8 @@ body { margin: 0; font-family: "Poppins",sans-serif; }
   transform: translateY(0);
 }
 
-
 body::-webkit-scrollbar {
-  width: .5vw;
+  width: 0.5vw;
 }
 
 body::-webkit-scrollbar-thumb {
@@ -56,9 +55,6 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-track:hover {
   background-color: #d3d3d3;
 }
-
-
-
 
 /* Each Section Container */
 .container-template {
@@ -95,7 +91,6 @@ body::-webkit-scrollbar-track:hover {
     padding: 15px;
   }
 }
-
 
 @media (max-width: 1222px) {
   .container-template {

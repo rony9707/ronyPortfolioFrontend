@@ -6,8 +6,6 @@ import swal from 'sweetalert2';
 })
 export class CommonService {
 
-  constructor() { }
-
   copyToClipboard(text: string): void {
     const textarea = document.createElement('textarea');
     textarea.value = text;

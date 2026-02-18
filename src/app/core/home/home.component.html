@@ -1,86 +1,101 @@
-<div class="flex flex-row h-screen relative">
-
+<main class="flex flex-row h-screen relative">
   <!-- Hamburger -->
   <!-- Hamburger -->
-  <div class="absolute top-0 right-0 mr-5 mt-2 cursor-pointer z-50 xl:hidden animate-fade-slide-down"
-    (click)="sidebarOpen.set(!sidebarOpen())">
+  <section
+    class="absolute top-0 right-0 mr-5 mt-2 cursor-pointer z-50 xl:hidden animate-fade-slide-down"
+    (click)="sidebarOpen.set(!sidebarOpen())"
+  >
     @if (!sidebarOpen()) {
-    <img class="w-8" src="assets/SVG/hamburger_open.svg" alt="open" />
+      <img class="w-8" src="assets/SVG/hamburger_open.svg" alt="open" />
     } @else {
-    <app-close></app-close>
+      <app-close></app-close>
     }
-  </div>
-
-
-
+  </section>
 
   <!-- Sidebar -->
-  <div class="bg-slate-900 p-4 space-y-2 transition-all duration-300 ease-in-out
-            w-80 xl:relative absolute h-full z-40 overflow-y-auto" [ngClass]="{
-       'translate-x-0': sidebarOpen(),
-       '-translate-x-full': !sidebarOpen(),
-       'xl:translate-x-0': true
-     }">
-    <app-sidebar [activeSection]="activeSection()" [socialLinks]="agnibhaData()!.socialLinks"
-      [pfp]="agnibhaData()!.info[9].value" (closeSidebarEvent)="closeSidebar($event)">
+  <section
+    class="bg-slate-900 p-4 space-y-2 transition-all duration-300 ease-in-out w-80 xl:relative absolute h-full z-40 overflow-y-auto"
+    [ngClass]="{
+      'translate-x-0': sidebarOpen(),
+      '-translate-x-full': !sidebarOpen(),
+      'xl:translate-x-0': true,
+    }"
+  >
+    <app-sidebar
+      [activeSection]="activeSection()"
+      [socialLinks]="agnibhaData()!.socialLinks"
+      [pfp]="agnibhaData()!.info[9].value"
+      (closeSidebarEvent)="closeSidebar($event)"
+    >
     </app-sidebar>
-  </div>
-
-
+  </section>
 
   <!-- Scrollable Container -->
-  <div class="flex-grow overflow-y-scroll scroll-smooth w-full" #scrollContainer (scroll)="onScroll()">
-
+  <section
+    class="flex-grow overflow-y-scroll scroll-smooth w-full"
+    #scrollContainer
+    (scroll)="onScroll()"
+  >
     @if (songService.music_status()) {
-    <canvas #canvas class="audio-visualizer"></canvas>
+      <canvas #canvas class="audio-visualizer"></canvas>
     }
     <!-- Home Section -->
-    <div #indexSection class="even" id="indexSection">
+    <header #indexSection class="even" id="indexSection">
       <app-index [videoBg]="agnibhaData()!.info[12]!.value"></app-index>
-    </div>
+    </header>
 
+    @defer {
+      <!-- About Me Section -->
+      <article #aboutSection class="pt-10 pb-10 odd" id="aboutSection">
+        <app-about [agnibhaData]="agnibhaData()"></app-about>
+      </article>
+    }
 
-    <!-- About Me Section -->
-    <div #aboutSection class="pt-10 pb-10 odd" id="aboutSection">
-      <app-about [agnibhaData]="agnibhaData()"></app-about>
-    </div>
+    @defer {
+      <!-- Interests Section -->
+      <article class="pt-10 pb-10 even">
+        <app-interests
+          [songList]="agnibhaData()!.songs"
+          (music_play_status)="music_play_status($event)"
+        ></app-interests>
+      </article>
+    }
 
+    @defer {
+      <!-- Skills Section -->
+      <article class="pt-10 pb-10 odd">
+        <app-skills [skills]="agnibhaData()!.skills"></app-skills>
+      </article>
+    }
 
-    <!-- Interests Section -->
-    <div class="pt-10 pb-10 even">
-      <app-interests [songList]="agnibhaData()!.songs" (music_play_status)="music_play_status($event)"></app-interests>
-    </div>
+    @defer {
+      <!-- Resume Section -->
+      <article #resumeSection class="pt-10 pb-10 even" id="resumeSection">
+        <app-resume
+          [experience]="agnibhaData()!.experiences"
+          [agnibhaData]="agnibhaData()"
+          [resumeDownloadLink]="agnibhaData()!.info[11]!.value"
+        ></app-resume>
+      </article>
+    }
 
-
-    <!-- Skills Section -->
-    <div class="pt-10 pb-10 odd">
-      <app-skills [skills]="agnibhaData()!.skills"></app-skills>
-    </div>
-
-
-    <!-- Resume Section -->
-    <div #resumeSection class="pt-10 pb-10 even" id="resumeSection">
-      <app-resume [experience]="agnibhaData()!.experiences" [agnibhaData]="agnibhaData()"
-        [resumeDownloadLink]="agnibhaData()!.info[11]!.value"></app-resume>
-    </div>
-
-
-    <!-- Portfolio Section -->
-    <div #portfolioSection class="pt-10 pb-10 odd" id="portfolioSection">
-      <app-portfolio [portfolios]="agnibhaData()!.portfolios"></app-portfolio>
-    </div>
-
-
-    <!-- Contact Me Section -->
-    <div #contactSection class="pt-10 pb-10 even" id="contactSection">
-      <app-contactme [agnibhaData]="agnibhaData()"></app-contactme>
-    </div>
-
-    <!-- Footer Section -->
-         <!-- Contact Me Section -->
-    <div #contactSection class="pt-10 pb-10 odd">
-      <app-footer></app-footer>
-    </div>
+    @defer {
+      <!-- Portfolio Section -->
+      <article #portfolioSection class="pt-10 pb-10 odd" id="portfolioSection">
+        <app-portfolio [portfolios]="agnibhaData()!.portfolios"></app-portfolio>
+      </article>
+    }
     
-  </div>
-</div>
+    @defer {
+      <!-- Contact Me Section -->
+      <article #contactSection class="pt-10 pb-10 even" id="contactSection">
+        <app-contactme [agnibhaData]="agnibhaData()"></app-contactme>
+      </article>
+    }
+    <!-- Footer Section -->
+    <!-- Contact Me Section -->
+    <footer #contactSection class="pt-10 pb-10 odd">
+      <app-footer></app-footer>
+    </footer>
+  </section>
+</main>

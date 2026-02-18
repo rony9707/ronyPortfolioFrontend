@@ -11,8 +11,7 @@
 
 
   @for (experience of experiences; track experience.company; let i = $index; let isLast = $last) {
-  <div (click)="toggle(i)" class="accordion-header fade-in" (mouseenter)="hoveredIndex = i; updateActiveCompany()"
-    (mouseleave)="hoveredIndex = null; updateActiveCompany()" appIntersectionObserver>
+  <div (click)="toggle(i)" class="accordion-header fade-in"  appIntersectionObserver>
 
     <div>{{ experience.company }}</div>
     <div>{{ experience.duration }} | {{ experience.location }}</div>

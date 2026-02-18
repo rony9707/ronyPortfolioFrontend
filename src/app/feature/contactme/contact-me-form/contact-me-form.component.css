@@ -1,186 +1,134 @@
-:host{
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  height: 100%;
+:host {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-.name-email{
+/* ---------------- Layout ---------------- */
+
+.name-email,
+.subject,
+.sent-message {
   display: flex;
-  margin: 20px 20px 0px 20px;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.name-email-input-el{
+.name-email { margin: 20px 20px 0; }
+.subject { margin: 20px 20px 0; }
+.sent-message { margin: 20px 30px 0; }
+
+.name-email-input-el {
   width: 50%;
-  margin: 0px 10px 0px 10px;
+  margin: 0 10px;
 }
 
-.subject{
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 20px 20px 0px 20px;
-}
-
-.subject-input-el{
+.subject-input-el {
   width: 100%;
-  margin: 0px 10px 0px 10px;
+  margin: 0 10px;
 }
 
-.sent-message{
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 20px 30px 0px 30px;
-}
-
-.sent-message-input-el{
-  margin: 0px 0px 0px 0px;
-  min-width: 100%;
+.sent-message-input-el {
+  width: 100%;
   min-height: 200px;
   max-height: 400px;
 }
 
-.input-common{
-  padding: 10px;
-  box-shadow: none;
-  color: rgb(0, 0, 0);
-  border: 1px solid black;
-  font-family: 'Martian Mono', monospace;
-  font-family: 'Oswald', sans-serif;
-  font-family: 'Poppins', sans-serif;
-  font-family: 'Quicksand', sans-serif;
-  caret-color: rgb(0, 0, 0);
-  transition: .5s;
-  box-shadow: none;
+/* ---------------- Inputs ---------------- */
+
+.input-common {
   height: 30px;
+  padding: 10px;
+  border: 1px solid #000;
+  color: #000;
+  caret-color: #000;
+  font-family: 'Quicksand', sans-serif;
+  transition: 0.5s;
 }
-
-
 
 .input-common:focus {
-  background-color: rgba(73, 255, 53, 0.148);
-  transition: 0.5s;
-  border: none;  
+  background: rgba(73, 255, 53, 0.15);
+  border: none;
 }
 
-.input-common:invalid:focus {
-  outline: 2px solid red;
-  border: none;  
-  transition: 0.3s;
-}
-
-
+.input-common:invalid:focus,
 .invalid-input-field {
   outline: 2px solid red;
   border: none;
-  transition: 0.3s;
+  border: unset;
 }
 
 .valid-input-field {
   outline: 2px solid var(--site-accent);
-  border: none;
-  transition: 0.3s;
+  border: unset;
 }
 
-.connectme-button{
-  border: 0;
-  padding: 10px;
-  color: #000000;
-  transition: 0.4s;
-  border-radius: 4px;
-  background-color: var(--site-accent);
+/* ---------------- Button ---------------- */
+
+.connectme-button {
   width: 170px;
   height: 50px;
-  margin: 20px 0px 20px 0px;
-  cursor: pointer;
-  transition: .3s;
+  margin: 20px 0;
+  padding: 10px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--site-accent);
+  color: #000;
   font-size: 15px;
   font-weight: 600;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 0.3s;
 }
 
+.connectme-button:hover {
+  background: #15bb62;
+}
 
-.connectme-button-click-animation{
+.connectme-button-click-animation {
   transform: scale(0.95);
 }
 
-.connectme-button:hover{
-  background: #15bb62;
-  transition: .3s;
-}
-
+/* ---------------- Animation ---------------- */
 
 .shake {
   animation: shake 0.5s;
-  border: none;
   outline: 2px solid red;
 }
 
 @keyframes shake {
-  0%, 100% {
-    transform: translateX(0);
-  }
-  10%, 30%, 50%, 70%, 90% {
-    transform: translateX(-3px);
-  }
-  20%, 40%, 60%, 80% {
-    transform: translateX(3px);
-  }
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
+  20%, 40%, 60%, 80% { transform: translateX(3px); }
 }
 
-svg{
+/* ---------------- SVG ---------------- */
+
+svg {
   width: 100px;
   height: 90px;
-  display:inline-block;
+  display: inline-block;
 }
 
+/* ---------------- Mobile ---------------- */
 
 @media (max-width: 650px) {
-  .name-email{
+  .name-email {
     flex-direction: column;
     align-items: center;
   }
 
-  .subject{
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 20px 10px 0px 10px;
-  }
-
-  .sent-message{
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 20px 20px 0px 20px;
-  }
-
-  .name-email-input-el{
+  .name-email-input-el {
     width: 100%;
-    margin: 20px 10px 0px 10px;
+    margin: 20px 10px 0;
   }
 
-
-  @keyframes shake {
-    0%, 100% {
-      transform: translateX(0);
-    }
-    10%, 30%, 50%, 70%, 90% {
-      transform: translateX(-3px);
-    }
-    20%, 40%, 60%, 80% {
-      transform: translateX(3px);
-    }
-  }
-  
+  .subject { margin: 20px 10px 0; }
+  .sent-message { margin: 20px 20px 0; }
 }

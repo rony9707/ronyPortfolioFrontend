@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core'
 import { Experience } from '../../../../shared/interface/IAgnibhaProfile.interface'
-import { CommonModule } from '@angular/common'
+import { NgStyle } from '@angular/common'
+
 
 @Component({
   selector: 'app-experience-timeline-component',
   standalone: true,
-  imports: [CommonModule],
+  imports: [NgStyle],
   templateUrl: './experience-timeline-component.component.html',
   styleUrl: './experience-timeline-component.component.css'
 })

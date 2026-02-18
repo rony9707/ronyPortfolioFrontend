@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, input, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, input, ViewChild } from '@angular/core';
 import { Metric } from '../../../shared/interface/IAgnibhaProfile.interface';
 import { IntersectionObserverDirective } from '../../../shared/directive/intersection-observer.directive';
 
@@ -10,7 +10,7 @@ import { IntersectionObserverDirective } from '../../../shared/directive/interse
   styleUrl: './metric-template.component.css',
   changeDetection:ChangeDetectionStrategy.OnPush
 })
-export class MetricTemplateComponent {
+export class MetricTemplateComponent implements AfterViewInit {
   metric=input<Metric>()
 
   @ViewChild('metricCount', { static: false }) metricCount!: ElementRef;

@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, OnDestroy, signal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import swal from 'sweetalert2';
 
@@ -6,7 +6,7 @@ import swal from 'sweetalert2';
 @Injectable({
   providedIn: 'root'
 })
-export class SongService {
+export class SongService implements OnDestroy {
 
   public audio = new Audio();
   music_status = signal(false)
@@ -88,7 +88,7 @@ export class SongService {
       if (this.musicUrl && this.audio.src !== this.musicUrl()) {
         this.audio.src = this.musicUrl();
       }
-      this.audio.play().then((val) => {
+      this.audio.play().then(() => {
         this.music_status.set(musicStatus);
         this.startTimer();
         // this.playSound();

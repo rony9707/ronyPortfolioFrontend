@@ -78,9 +78,8 @@
 }
 
 /* Media query for 1 column */
-@media (max-width: 574px) {
+/* @media (max-width: 574px) {
   .portfolio-main {
-    grid-template-columns: repeat(1, 2fr);
     transition: .4s;
   }
-}
+} */

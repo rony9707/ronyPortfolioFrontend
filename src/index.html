@@ -1,31 +1,47 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>RonyPortfolio</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Agnibha Chowdhury portfolio" />
+    <meta name="google-site-verification" content="Jfwa5wqC6D3Naa3cByzzHXk61Dw0fhtCFugSbae2gXA" />
+    <link rel="icon" type="image/x-icon" href="logo.svg" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <title>RonyPortfolio</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="This is my portfolio website">
-  <link rel="icon" type="image/x-icon" href="logo.svg">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
+  <body>
+    <script>
+      let originalTitle = "Agnibha Chowdhury_";
+      let blinkingTitle = "Agnibha Chowdhury";
+      let currentTitle = originalTitle;
 
-<body>
-  <script>
-    let originalTitle = "Rony_Portfolio_";
-    let blinkingTitle = "Rony_Portfolio";
-    let currentTitle = originalTitle;
+      function toggleTitle() {
+        document.title = currentTitle;
+        currentTitle =
+          currentTitle === originalTitle ? blinkingTitle : originalTitle;
+      }
 
-    function toggleTitle() {
-      document.title = currentTitle;
-      currentTitle = currentTitle === originalTitle ? blinkingTitle : originalTitle;
-    }
+      setInterval(toggleTitle, 400);
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Agnibha Chowdhury",
+        "jobTitle": "Angular Developer",
+        "url": "https://agnibha-97.web.app",
+        "sameAs": [
+          "https://github.com/rony9707"
+        ]
+      }
+    </script>
 
-    setInterval(toggleTitle, 400);
-  </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkYGu55UfUcCyL-7OSxW9hqEnyIFH-szo"></script>
-  <app-root></app-root>
-</body>
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkYGu55UfUcCyL-7OSxW9hqEnyIFH-szo"></script>
+    <app-root></app-root>
+  </body>
 </html>

@@ -1,9 +1,7 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, input, Input, Output, signal, ViewChild, } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, input, OnDestroy, OnInit, Output, signal, ViewChild, } from '@angular/core';
 import { SectionTitleComponent } from "../../shared/components/section-title/section-title.component";
 
 import { IntersectionObserverDirective } from '../../shared/directive/intersection-observer.directive';
-import swal from 'sweetalert2';
-import { MetricTemplateComponent } from '../about/metric-template/metric-template.component';
 import { SongService } from '../../shared/services/song/song.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -17,7 +15,7 @@ import { PauseComponent } from "../../shared/components/pause/pause.component";
   styleUrl: './interests.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InterestsComponent {
+export class InterestsComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   interests = [

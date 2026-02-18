@@ -21,7 +21,7 @@ export class SidebarComponent {
 
   @Output() closeSidebarEvent = new EventEmitter<boolean>();
 
-  closeSidebar(close: boolean): void {
+  closeSidebar(): void {
     this.closeSidebarEvent.emit(false); // Emit the event to close the sidebar
   }
 

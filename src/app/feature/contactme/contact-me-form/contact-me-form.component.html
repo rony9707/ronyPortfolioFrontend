@@ -1,55 +1,137 @@
-<form class="form" [formGroup]="sendMessage" (ngSubmit)="sendMessageEmail()" enctype="multipart/form-data">
+<form
+  class="form"
+  [formGroup]="sendMessage"
+  (ngSubmit)="sendMessageEmail()"
+  enctype="multipart/form-data"
+>
   <div class="name-email">
-    <input appIntersectionObserver #inputField type="text" class="name-email-input-el input-common fade-in"
-      placeholder="Your Name" formControlName="fullname" (keypress)="onlyAlphabets($event)" [ngClass]="{ 
-        'invalid-input-field': fullnameValidator && fullnameValidator.invalid && fullnameValidator.touched,
-        'valid-input-field': fullnameValidator && fullnameValidator.valid && fullnameValidator.touched
-      }">
+    <input
+      appIntersectionObserver
+      #inputField
+      type="text"
+      class="name-email-input-el input-common fade-in"
+      placeholder="Your Name"
+      formControlName="fullname"
+      (keypress)="onlyAlphabets($event)"
+      [ngClass]="{
+        'invalid-input-field':
+          fullnameValidator &&
+          fullnameValidator.invalid &&
+          fullnameValidator.touched,
+        'valid-input-field':
+          fullnameValidator &&
+          fullnameValidator.valid &&
+          fullnameValidator.touched,
+      }"
+    />
 
-    <input appIntersectionObserver #inputField type="text" class="name-email-input-el input-common fade-in"
-      placeholder="Your Email" formControlName="email" [ngClass]="{ 
-        'invalid-input-field': emailValidator && emailValidator.invalid && emailValidator.touched,
-        'valid-input-field': emailValidator && emailValidator.valid && emailValidator.touched
-      }">
+    <input
+      appIntersectionObserver
+      #inputField
+      type="text"
+      class="name-email-input-el input-common fade-in"
+      placeholder="Your Email"
+      formControlName="email"
+      [ngClass]="{
+        'invalid-input-field':
+          emailValidator && emailValidator.invalid && emailValidator.touched,
+        'valid-input-field':
+          emailValidator && emailValidator.valid && emailValidator.touched,
+      }"
+    />
   </div>
 
   <div class="subject">
-    <input appIntersectionObserver #inputField type="text" class="subject-input-el input-common fade-in"
-      placeholder="Subject" formControlName="subject" [ngClass]="{ 
-        'invalid-input-field': subjectValidator && subjectValidator.invalid && subjectValidator.touched,
-        'valid-input-field': subjectValidator && subjectValidator.valid && subjectValidator.touched
-      }">
+    <input
+      appIntersectionObserver
+      #inputField
+      type="text"
+      class="subject-input-el input-common fade-in"
+      placeholder="Subject"
+      formControlName="subject"
+      [ngClass]="{
+        'invalid-input-field':
+          subjectValidator &&
+          subjectValidator.invalid &&
+          subjectValidator.touched,
+        'valid-input-field':
+          subjectValidator &&
+          subjectValidator.valid &&
+          subjectValidator.touched,
+      }"
+    />
   </div>
 
   <div appIntersectionObserver class="sent-message fade-in">
-    <textarea #inputField class="sent-message-input-el input-common" placeholder="Message" formControlName="message"
-      [ngClass]="{ 
-        'invalid-input-field': messageValidator && messageValidator.invalid && messageValidator.touched,
-        'valid-input-field': messageValidator && messageValidator.valid && messageValidator.touched
-      }"></textarea>
+    <textarea
+      #inputField
+      class="sent-message-input-el input-common"
+      placeholder="Message"
+      formControlName="message"
+      [ngClass]="{
+        'invalid-input-field':
+          messageValidator &&
+          messageValidator.invalid &&
+          messageValidator.touched,
+        'valid-input-field':
+          messageValidator &&
+          messageValidator.valid &&
+          messageValidator.touched,
+      }"
+    ></textarea>
   </div>
 
-
   <div class="sent-message">
+    @if (loading) {
+      <svg
+        version="1.1"
+        id="L4"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px"
+        y="0px"
+        viewBox="0 0 100 100"
+        enable-background="new 0 0 100 100"
+        xml:space="preserve"
+      >
+        <circle fill="#000" stroke="none" cx="33.33" cy="50" r="6">
+          <animate
+            attributeName="opacity"
+            dur="1s"
+            values="0;1;0"
+            repeatCount="indefinite"
+            begin="0.1"
+          />
+        </circle>
+        <circle fill="#000" stroke="none" cx="50" cy="50" r="6">
+          <animate
+            attributeName="opacity"
+            dur="1s"
+            values="0;1;0"
+            repeatCount="indefinite"
+            begin="0.2"
+          />
+        </circle>
+        <circle fill="#000" stroke="none" cx="66.67" cy="50" r="6">
+          <animate
+            attributeName="opacity"
+            dur="1s"
+            values="0;1;0"
+            repeatCount="indefinite"
+            begin="0.3"
+          />
+        </circle>
+      </svg>
+    }
 
-
-    <svg *ngIf="loading" version="1.1" id="L4" xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100"
-      enable-background="new 0 0 100 100" xml:space="preserve">
-      <circle fill="#000" stroke="none" cx="33.33" cy="50" r="6">
-        <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.1" />
-      </circle>
-      <circle fill="#000" stroke="none" cx="50" cy="50" r="6">
-        <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.2" />
-      </circle>
-      <circle fill="#000" stroke="none" cx="66.67" cy="50" r="6">
-        <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.3" />
-      </circle>
-    </svg>
-
-
-    <button appIntersectionObserver #ConnectMeButton *ngIf="!loading" class="connectme-button fade-in">
-      Send Message
-    </button>
+    @if (!loading) {
+      <button
+        appIntersectionObserver
+        #ConnectMeButton
+        class="connectme-button fade-in"
+      >
+        Send Message
+      </button>
+    }
   </div>
 </form>

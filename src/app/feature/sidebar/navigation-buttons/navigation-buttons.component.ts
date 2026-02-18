@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, input, Input, Output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, input, Output, signal } from '@angular/core';
 import { SectionScrollService } from '../../../core/services/sectionScroll/section-scroll.service';
 import { CommonModule } from '@angular/common';
 

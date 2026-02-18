@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, inject, input, Input, QueryList, SimpleChange, SimpleChanges, ViewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, OnChanges, SimpleChanges } from '@angular/core';
 import { SectionTitleComponent } from "../../shared/components/section-title/section-title.component";
 import { IAgnibhaProfile } from '../../shared/interface/IAgnibhaProfile.interface';
 import { DatePipe } from '@angular/common';
@@ -15,7 +15,7 @@ import { CommonService } from '../../shared/services/common/common.service';
   styleUrl: './about.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AboutComponent {
+export class AboutComponent implements OnChanges {
 
   //Decleare Properties here
   agnibhaData = input<IAgnibhaProfile | null>(null)

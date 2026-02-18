@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://agnibha-97.web.app/sitemap.xml

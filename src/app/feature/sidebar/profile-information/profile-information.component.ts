@@ -1,18 +1,16 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { SocialLinksComponent } from "./social-links/social-links.component";
+import { SocialLinksComponent } from './social-links/social-links.component';
 import { SocialLink } from '../../../shared/interface/IAgnibhaProfile.interface';
 
 @Component({
   selector: 'app-profile-information',
   standalone: true,
-  imports: [CommonModule, SocialLinksComponent],
+  imports: [SocialLinksComponent],
   templateUrl: './profile-information.component.html',
   styleUrl: './profile-information.component.css',
-  changeDetection:ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileInformationComponent {
-
   socialLinks = input<SocialLink[]>([]);
   pfp = input<string>('');
 }

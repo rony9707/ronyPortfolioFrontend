@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, inject, input, Input, signal, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, inject, input, signal, ViewChild } from '@angular/core';
 import { Skill } from '../../../shared/interface/IAgnibhaProfile.interface';
 import { trigger, transition, style, animate, state } from '@angular/animations';
 import { IntersectionObserverDirective } from '../../../shared/directive/intersection-observer.directive';
@@ -23,7 +23,7 @@ import { IntersectionObserverDirective } from '../../../shared/directive/interse
   ],
   changeDetection:ChangeDetectionStrategy.OnPush
 })
-export class SkillTemplateComponent {
+export class SkillTemplateComponent implements AfterViewInit {
 
   @ViewChild('templatePercentage', { static: false }) templatePercentage!: ElementRef;
   @ViewChild('skillTemplate', { static: false }) skillTemplate!: ElementRef;

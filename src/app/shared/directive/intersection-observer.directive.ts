@@ -1,10 +1,10 @@
-import { Directive, ElementRef, inject, Renderer2 } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, inject, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appIntersectionObserver]',
   standalone: true
 })
-export class IntersectionObserverDirective {
+export class IntersectionObserverDirective implements AfterViewInit {
 
   private el=inject(ElementRef);
   private renderer= inject(Renderer2)

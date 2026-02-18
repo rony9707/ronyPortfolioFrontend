@@ -1,4 +1,4 @@
-import { Component, inject, input, Input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { CommonService } from '../../../shared/services/common/common.service';
 import { IAgnibhaProfile } from '../../../shared/interface/IAgnibhaProfile.interface';
 import { IntersectionObserverDirective } from '../../../shared/directive/intersection-observer.directive';
