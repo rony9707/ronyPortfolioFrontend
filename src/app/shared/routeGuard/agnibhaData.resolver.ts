@@ -17,7 +17,7 @@ export const userResolver: ResolveFn<IAgnibhaProfile> = () => {
     return Promise.resolve(cachedData); // no need to hit API
   }
 
-  return http.get<IAgnibhaProfile>('https://rony-portfolio.vercel.app/agnibha/getProfile', {
+  return http.get<IAgnibhaProfile>('http://localhost:4000/agnibha/getProfile', {
     withCredentials: true
   }).pipe(
     tap((data) => userService.setUserData(data))

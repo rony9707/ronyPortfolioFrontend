@@ -1,7 +1,19 @@
-<div class="h-20 flex flex-col items-center space-y-1 fade-in" appIntersectionObserver>
+<div
+  class="h-20 flex flex-col items-center space-y-1 fade-in relative"
+  appIntersectionObserver
+>
   <div class="flex items-center justify-left gap-3">
     <img [src]="metric()?.svgImage" alt="metric icon" class="w-8 h-8" />
     <div class="font-extrabold text-4xl" #metricCount>0</div>
   </div>
   <div class="text-lg text-center opacity-50">{{ metric()?.description }}</div>
+  @if (metric()?.description == "Certificates Earned") {
+    <div class="certificates-container">
+      @for (certificate of agnibhaData()?.certificates; track certificate) {
+        <a [href]="certificate" target="_blank">
+          <img [src]="certificate" alt="certificate" class="certificate-img" />
+        </a>
+      }
+    </div>
+  }
 </div>

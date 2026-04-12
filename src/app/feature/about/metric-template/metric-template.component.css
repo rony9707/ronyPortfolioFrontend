@@ -1,0 +1,48 @@
+.certificates-container {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: visible;
+  gap: 5px;
+  width: 60%;
+  border: 1px solid red;
+}
+
+.certificates-container a {
+  display: inline-block;
+  position: relative;
+}
+
+.certificate-img {
+  width: 15px;
+  height: 15px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+  position: relative;
+  display: block;
+}
+
+/* Border Layer (does NOT scale) */
+.certificates-container a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid transparent;
+  pointer-events: none;
+  z-index: 1001;
+}
+
+/* Hover */
+.certificates-container a:hover .certificate-img {
+  transform: scale(30);
+  z-index: 2000;
+  box-shadow: 0 20px 35px rgba(0,0,0,0.35);
+  background: white;
+  display: grid;
+  place-items: center;
+}
+
+/* Thin Border on Hover */
+.certificates-container a:hover::after {
+  border: 1px solid var(--site-accent);
+}

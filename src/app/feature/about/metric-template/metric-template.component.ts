@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, input, ViewChild } from '@angular/core';
-import { Metric } from '../../../shared/interface/IAgnibhaProfile.interface';
+import { IAgnibhaProfile, Metric } from '../../../shared/interface/IAgnibhaProfile.interface';
 import { IntersectionObserverDirective } from '../../../shared/directive/intersection-observer.directive';
 
 @Component({
@@ -12,8 +12,10 @@ import { IntersectionObserverDirective } from '../../../shared/directive/interse
 })
 export class MetricTemplateComponent implements AfterViewInit {
   metric=input<Metric>()
+  agnibhaData = input<IAgnibhaProfile | null>(null)
 
   @ViewChild('metricCount', { static: false }) metricCount!: ElementRef;
+  
   
 
   ngAfterViewInit(): void {

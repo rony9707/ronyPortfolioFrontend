@@ -29,6 +29,10 @@ export interface Portfolio {
   npmInstallCMD?: string;
 }
 
+export interface Certificates {
+  certificates: string;
+}
+
 
 export interface SocialLink {
   platform: string;
@@ -52,6 +56,7 @@ export interface IAgnibhaProfile {
   info: KeyValue[];
   meterics: Metric[];
   skills: Skill[];
+  certificates: Certificates[];
   portfolios: Portfolio[];
   socialLinks: SocialLink[];
   experiences: Experience[];

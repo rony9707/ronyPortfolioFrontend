@@ -23,7 +23,7 @@ import { InterestsComponent } from '../../feature/interests/interests.component'
 import { SongService } from '../../shared/services/song/song.service';
 import { CloseComponent } from '../../shared/components/close/close.component';
 import { FooterComponent } from '../../feature/footer/footer.component';
-import { NgClass } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -39,7 +39,8 @@ import { NgClass } from '@angular/common';
     InterestsComponent,
     CloseComponent,
     FooterComponent,
-    NgClass
+    NgClass,
+    AsyncPipe,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -58,6 +59,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('aboutSection') aboutSection!: ElementRef;
   @ViewChild('resumeSection') resumeSection!: ElementRef;
   @ViewChild('portfolioSection') portfolioSection!: ElementRef;
+  @ViewChild('interestsSection') interestsSection!: ElementRef;
   @ViewChild('contactSection') contactSection!: ElementRef;
   agnibhaData = signal<IAgnibhaProfile | null>(null);
   @ViewChild('canvas', { static: false })
@@ -70,7 +72,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   private $scrollSub!: Subscription;
 
   // Inject services here
-  private scrollService = inject(SectionScrollService);
+  public scrollService = inject(SectionScrollService);
   private route = inject(ActivatedRoute);
   public songService = inject(SongService);
 
@@ -101,12 +103,17 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       resumeSection: this.resumeSection,
       portfolioSection: this.portfolioSection,
       contactSection: this.contactSection,
+      interestsSection: this.interestsSection,
     };
 
     const targetRef = sectionMap[sectionName];
     if (targetRef) {
       this.scrollTo(targetRef.nativeElement);
     }
+  }
+
+  goToMusic() {
+    this.scrollService.scrollToSection('interestsSection');
   }
 
   //which section to navigate coming from "Navigation Button Component"--2

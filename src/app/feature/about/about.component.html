@@ -73,7 +73,7 @@
 
   <div #animationDiv class="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
     @for(metric of agnibhaData()?.meterics; track metric.type){
-    <app-metric-template [metric]="metric"></app-metric-template>
+    <app-metric-template [agnibhaData]="agnibhaData()" [metric]="metric"></app-metric-template>
     }
   </div>
 

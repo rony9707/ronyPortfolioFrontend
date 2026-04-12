@@ -2,14 +2,36 @@
   <!-- Hamburger -->
   <!-- Hamburger -->
   <section
-    class="absolute top-0 right-0 mr-5 mt-2 cursor-pointer z-50 xl:hidden animate-fade-slide-down"
-    (click)="sidebarOpen.set(!sidebarOpen())"
+    class="absolute top-2 right-5 z-50 flex items-center gap-3 animate-fade-slide-down"
   >
-    @if (!sidebarOpen()) {
-      <img class="w-8" src="assets/SVG/hamburger_open.svg" alt="open" />
-    } @else {
-      <app-close></app-close>
+    <!-- Music Indicator -->
+    @if (songService.music_status()) {
+      <img
+        class="w-8 h-8 xl:w-16 xl:h-16 cursor-pointer"
+        src="assets/images/giphy.gif"
+        width="40"
+        height="40"
+        (click)="goToMusic()"
+        alt="Loading"
+      />
+
+      <div
+        class="hidden sm:block"
+        [innerHTML]="songService.currentLyric | async"
+      ></div>
     }
+    <!-- Hamburger -->
+    <div (click)="sidebarOpen.set(!sidebarOpen())" class="cursor-pointer">
+      @if (!sidebarOpen()) {
+        <img
+          class="w-8 xl:hidden"
+          src="assets/SVG/hamburger_open.svg"
+          alt="open"
+        />
+      } @else {
+        <app-close class="xl:hidden"></app-close>
+      }
+    </div>
   </section>
 
   <!-- Sidebar -->
@@ -53,7 +75,7 @@
 
     @defer {
       <!-- Interests Section -->
-      <article class="pt-10 pb-10 even">
+      <article #interestsSection class="pt-10 pb-10 even" id="interestsSection">
         <app-interests
           [songList]="agnibhaData()!.songs"
           (music_play_status)="music_play_status($event)"
@@ -85,7 +107,7 @@
         <app-portfolio [portfolios]="agnibhaData()!.portfolios"></app-portfolio>
       </article>
     }
-    
+
     @defer {
       <!-- Contact Me Section -->
       <article #contactSection class="pt-10 pb-10 even" id="contactSection">
